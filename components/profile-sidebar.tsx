@@ -11,19 +11,35 @@ interface ProfileSidebarProps {
 export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
   return (
     <aside className="w-full lg:w-[340px] lg:min-h-screen bg-background p-6 lg:p-8 flex flex-col lg:fixed lg:left-0 lg:top-0 lg:bottom-0 lg:overflow-y-auto z-50 lg:border-r lg:border-border/30">
-      {/* Profile Image */}
-      <div className="relative w-full aspect-[16/9] rounded-lg overflow-hidden mb-6 opacity-0 animate-fade-in-up">
-        <Image
-          src={profile.image || "/placeholder.svg"}
-          alt={profile.name}
-          fill
-          className="object-cover"
-          priority
-        />
+      {/* Hero Section - Banner with Profile Photo Overlay */}
+      <div className="relative mb-6 opacity-0 animate-fade-in-up">
+        {/* Banner Image - Fluid scaling */}
+        <div className="relative w-full aspect-[16/9] rounded-lg overflow-hidden">
+          <Image
+            src={profile.bannerImage || profile.image || "/placeholder.svg"}
+            alt="Banner"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Gradient overlay for better profile photo contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-transparent" />
+        </div>
+        
+        {/* Profile Photo - Fixed size, overlapping banner */}
+        <div className="absolute -bottom-8 left-4 w-28 h-28 rounded-lg overflow-hidden border-4 border-background shadow-xl">
+          <Image
+            src={profile.image || "/placeholder.svg"}
+            alt={profile.name}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
       </div>
 
-      {/* Name and Title */}
-      <div className="mb-6 opacity-0 animate-fade-in-up stagger-1">
+      {/* Name and Title - Adjusted margin for profile photo overlap */}
+      <div className="mt-6 mb-6 opacity-0 animate-fade-in-up stagger-1">
         <h1 className="text-2xl font-bold text-foreground mb-1 text-balance">
           {profile.name}
         </h1>

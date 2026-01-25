@@ -3,32 +3,40 @@
     "id": "ibmec-ideas",
     "title": "Ibmec Ideas",
     "description": "A platform for showcasing and managing academic projects, fostering collaboration between students and faculty.",
-    "image": "/placeholder.svg?height=300&width=500&query=ibmec ideas blue education platform dashboard",
-    "href": "/projects/ibmec-ideas",
-    "tags": ["React", "Node.js", "MongoDB"]
+    "fullDescription": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum",
+    "image": "/placeholder.svg?height=400&width=700&query=ibmec ideas blue education platform dashboard with login screen",
+    "tags": ["React", "Node.js", "MongoDB"],
+    "repoUrl": "https://github.com/example/ibmec-ideas",
+    "liveUrl": "https://ibmec-ideas.com"
   },
   {
     "id": "kroma",
     "title": "Kroma",
     "description": "Technical visualization tool with CAD-like interface for engineering and architectural designs.",
-    "image": "/placeholder.svg?height=300&width=500&query=kroma technical blueprint engineering design dark theme",
-    "href": "/projects/kroma",
-    "tags": ["Three.js", "TypeScript", "WebGL"]
+    "fullDescription": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum",
+    "image": "/placeholder.svg?height=400&width=700&query=kroma technical blueprint engineering CAD design dark theme",
+    "tags": ["Three.js", "TypeScript", "WebGL"],
+    "repoUrl": "https://github.com/example/kroma",
+    "liveUrl": "https://kroma.io"
   },
   {
     "id": "fintrack",
-    "title": "Teste",
+    "title": "FinTrack",
     "description": "Personal finance management application with budget tracking, expense categorization, and visual analytics.",
-    "image": "/placeholder.svg?height=300&width=500&query=finance tracking app dashboard charts green theme",
-    "href": "/projects/fintrack",
-    "tags": ["Next.js", "Tailwind", "Charts"]
+    "fullDescription": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum",
+    "image": "/placeholder.svg?height=400&width=700&query=finance tracking app dashboard with charts green theme",
+    "tags": ["Next.js", "Tailwind", "Charts"],
+    "repoUrl": "https://github.com/example/fintrack",
+    "liveUrl": "https://fintrack.app"
   },
   {
     "id": "codecollab",
     "title": "CodeCollab",
     "description": "Real-time collaborative code editor with live cursors, syntax highlighting, and integrated chat.",
-    "image": "/placeholder.svg?height=300&width=500&query=code collaboration editor dark theme programming",
-    "href": "/projects/codecollab",
-    "tags": ["WebSocket", "Monaco", "React"]
+    "fullDescription": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum",
+    "image": "/placeholder.svg?height=400&width=700&query=code collaboration editor dark theme with syntax highlighting",
+    "tags": ["WebSocket", "Monaco", "React"],
+    "repoUrl": "https://github.com/example/codecollab",
+    "liveUrl": "https://codecollab.dev"
   }
 ]
