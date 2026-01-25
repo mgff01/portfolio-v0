@@ -2,6 +2,7 @@ export interface Profile {
   name: string;
   title: string;
   image: string;
+  bannerImage?: string;
   about: string;
   skills: string[];
   languages: Language[];
@@ -22,9 +23,12 @@ export interface Project {
   id: string;
   title: string;
   description: string;
+  fullDescription?: string;
   image: string;
   href?: string;
   tags?: string[];
+  repoUrl?: string;
+  liveUrl?: string;
 }
 
 export interface Experience {

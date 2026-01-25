@@ -1,7 +1,8 @@
 {
   "name": "Mauricio Gomes Freire Filho",
   "title": "Computer Engineer Student",
-  "image": "/placeholder.svg?height=200&width=340&query=portrait photo of young man with beach background",
+  "image": "/images/photo.jpg",
+  "bannerImage": "/images/banner.jpg",
   "about": "Combining technical expertise in Front-End and Back-End development with advanced skills in visual and 3D design, I focus on building intuitive and functional interfaces. Experienced in collaborating on high-impact academic projects, I am equipped to solve complex problems with critical thinking and adaptability.",
   "skills": [
     "HTML",

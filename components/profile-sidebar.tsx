@@ -10,21 +10,37 @@ interface ProfileSidebarProps {
 
 export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
   return (
-    <aside className="w-full lg:w-[340px] lg:min-h-screen bg-background p-6 lg:p-8 flex flex-col lg:fixed lg:left-0 lg:top-0 lg:bottom-0 lg:overflow-y-auto z-50 lg:border-r lg:border-border/30">
-      {/* Profile Image */}
-      <div className="relative w-full aspect-[16/9] rounded-lg overflow-hidden mb-6 opacity-0 animate-fade-in-up">
-        <Image
-          src={profile.image || "/placeholder.svg"}
-          alt={profile.name}
-          fill
-          className="object-cover"
-          priority
-        />
+    <aside className="w-full lg:w-[340px] lg:min-h-screen bg-background p-4 sm:p-6 lg:p-8 flex flex-col lg:fixed lg:left-0 lg:top-0 lg:bottom-0 lg:overflow-y-auto z-50 lg:border-r lg:border-border/30">
+      {/* Hero Section - Responsive Banner with Profile Photo Overlay */}
+      <div className="relative mb-8 sm:mb-6 opacity-0 animate-fade-in-up">
+        {/* Banner Image - Full width, limited height on mobile */}
+        <div className="relative w-full h-24 sm:h-28 lg:aspect-[16/9] lg:h-auto rounded-lg overflow-hidden">
+          <Image
+            src={profile.bannerImage || "/images/banner.jpg"}
+            alt="Banner"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Gradient overlay for better profile photo contrast */}
+          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+        </div>
+        
+        {/* Profile Photo - Larger on mobile, fixed size on desktop */}
+        <div className="absolute -bottom-10 sm:-bottom-8 left-4 w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden border-4 border-background shadow-xl">
+          <Image
+            src={profile.image || "/images/photo.jpg"}
+            alt={profile.name}
+            fill
+            className="object-cover object-top"
+            priority
+          />
+        </div>
       </div>
 
-      {/* Name and Title */}
-      <div className="mb-6 opacity-0 animate-fade-in-up stagger-1">
-        <h1 className="text-2xl font-bold text-foreground mb-1 text-balance">
+      {/* Name and Title - Adjusted margin for profile photo overlap */}
+      <div className="mt-6 sm:mt-4 mb-6 opacity-0 animate-fade-in-up stagger-1">
+        <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-1 text-balance">
           {profile.name}
         </h1>
         <p className="text-muted-foreground text-sm">{profile.title}</p>
@@ -81,7 +97,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
               <p className="text-xs text-muted-foreground mb-2">{lang.level}</p>
               <div className="h-1 bg-border rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-foreground rounded-full transition-all duration-1000"
+                  className="h-full bg-primary rounded-full transition-all duration-1000"
                   style={{ width: `${lang.progress}%` }}
                 />
               </div>
