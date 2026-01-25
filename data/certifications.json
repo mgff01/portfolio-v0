@@ -1,0 +1,16 @@
+[
+  {
+    "id": "piloto-uas-pro",
+    "title": "Piloto UAS Pro",
+    "issuer": "ITARC - Professional Drone Pilot Certification",
+    "icon": "/placeholder.svg?height=40&width=40&query=itarc drone pilot certification logo",
+    "date": "2023"
+  },
+  {
+    "id": "workshop-ia",
+    "title": "WorkShop IA",
+    "issuer": "SENAC - Artificial Intelligence Workshop",
+    "icon": "/placeholder.svg?height=40&width=40&query=senac education logo red",
+    "date": "2023"
+  }
+]

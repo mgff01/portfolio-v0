@@ -1,0 +1,34 @@
+[
+  {
+    "id": "ibmec-ideas",
+    "title": "Ibmec Ideas",
+    "description": "A platform for showcasing and managing academic projects, fostering collaboration between students and faculty.",
+    "image": "/placeholder.svg?height=300&width=500&query=ibmec ideas blue education platform dashboard",
+    "href": "/projects/ibmec-ideas",
+    "tags": ["React", "Node.js", "MongoDB"]
+  },
+  {
+    "id": "kroma",
+    "title": "Kroma",
+    "description": "Technical visualization tool with CAD-like interface for engineering and architectural designs.",
+    "image": "/placeholder.svg?height=300&width=500&query=kroma technical blueprint engineering design dark theme",
+    "href": "/projects/kroma",
+    "tags": ["Three.js", "TypeScript", "WebGL"]
+  },
+  {
+    "id": "fintrack",
+    "title": "Teste",
+    "description": "Personal finance management application with budget tracking, expense categorization, and visual analytics.",
+    "image": "/placeholder.svg?height=300&width=500&query=finance tracking app dashboard charts green theme",
+    "href": "/projects/fintrack",
+    "tags": ["Next.js", "Tailwind", "Charts"]
+  },
+  {
+    "id": "codecollab",
+    "title": "CodeCollab",
+    "description": "Real-time collaborative code editor with live cursors, syntax highlighting, and integrated chat.",
+    "image": "/placeholder.svg?height=300&width=500&query=code collaboration editor dark theme programming",
+    "href": "/projects/codecollab",
+    "tags": ["WebSocket", "Monaco", "React"]
+  }
+]
