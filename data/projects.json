@@ -4,7 +4,7 @@
     "title": "Ibmec Ideas",
     "description": "A platform for showcasing and managing academic projects, fostering collaboration between students and faculty.",
     "fullDescription": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum",
-    "image": "/placeholder.svg?height=400&width=700&query=ibmec ideas blue education platform dashboard with login screen",
+    "image": "/images/ibmec-ideas.png",
     "tags": ["React", "Node.js", "MongoDB"],
     "repoUrl": "https://github.com/example/ibmec-ideas",
     "liveUrl": "https://ibmec-ideas.com"
@@ -14,7 +14,7 @@
     "title": "Kroma",
     "description": "Technical visualization tool with CAD-like interface for engineering and architectural designs.",
     "fullDescription": "Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum",
-    "image": "/placeholder.svg?height=400&width=700&query=kroma technical blueprint engineering CAD design dark theme",
+    "image": "/images/kroma.png",
     "tags": ["Three.js", "TypeScript", "WebGL"],
     "repoUrl": "https://github.com/example/kroma",
     "liveUrl": "https://kroma.io"

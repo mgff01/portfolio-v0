@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, A11y } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { motion } from "framer-motion";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, ArrowRight } from "lucide-react";
 import type { Project } from "@/types/portfolio";
 import ProjectModal from "./project-modal";
 
@@ -25,6 +26,9 @@ export default function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
   const [isEnd, setIsEnd] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Total slides including the "See All" card
+  const totalSlides = projects.length + 1;
 
   const handlePrev = () => swiperRef?.slidePrev();
   const handleNext = () => swiperRef?.slideNext();
@@ -110,12 +114,17 @@ export default function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
                 />
               </SwiperSlide>
             ))}
+            
+            {/* See All Projects Card */}
+            <SwiperSlide className="!h-auto">
+              <SeeAllCard index={projects.length} />
+            </SwiperSlide>
           </Swiper>
         </div>
 
         {/* Pagination Dots */}
         <div className="flex items-center justify-center gap-2 mt-6">
-          {projects.map((_, index) => (
+          {Array.from({ length: totalSlides }).map((_, index) => (
             <motion.button
               key={index}
               onClick={() => swiperRef?.slideTo(index)}
@@ -128,7 +137,7 @@ export default function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
               whileTap={{ scale: 0.9 }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               className="h-2 rounded-full"
-              aria-label={`Go to project ${index + 1}`}
+              aria-label={`Go to slide ${index + 1}`}
             />
           ))}
         </div>
@@ -231,6 +240,61 @@ function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
           </div>
         </motion.div>
       </button>
+    </motion.div>
+  );
+}
+
+interface SeeAllCardProps {
+  index: number;
+}
+
+function SeeAllCard({ index }: SeeAllCardProps) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ 
+        duration: 0.5, 
+        delay: index * 0.1,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }}
+      className="h-full"
+    >
+      <Link
+        href="/projects"
+        className="group block w-full h-full"
+        aria-label="See all projects"
+      >
+        <motion.div
+          whileHover={{ y: -8, scale: 1.02 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          className="relative overflow-hidden rounded-xl bg-card border border-border/50 border-dashed
+                     transition-all duration-500 hover:border-primary hover:shadow-xl hover:shadow-primary/10
+                     h-full flex flex-col"
+        >
+          {/* Placeholder area matching image aspect ratio */}
+          <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0 flex items-center justify-center bg-gradient-to-br from-primary/5 to-primary/20">
+            <motion.div
+              whileHover={{ scale: 1.1, rotate: 5 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center
+                         group-hover:bg-primary transition-colors duration-300"
+            >
+              <ArrowRight className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+            </motion.div>
+          </div>
+
+          {/* Content */}
+          <div className="p-5 flex flex-col flex-grow justify-center items-center text-center">
+            <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300">
+              See All Projects
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Browse the complete collection
+            </p>
+          </div>
+        </motion.div>
+      </Link>
     </motion.div>
   );
 }
