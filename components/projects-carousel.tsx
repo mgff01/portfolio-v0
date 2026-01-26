@@ -193,7 +193,7 @@ function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
             >
               <Image
                 src={project.image || "/placeholder.svg"}
-                alt={project.title}
+                alt={`Screenshot of ${project.title} project`}
                 fill
                 className="object-cover"
               />

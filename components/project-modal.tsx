@@ -89,7 +89,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
               >
                 <Image
                   src={project.image || "/placeholder.svg"}
-                  alt={project.title}
+                  alt={`Screenshot of ${project.title} project`}
                   fill
                   className="object-cover"
                   priority
