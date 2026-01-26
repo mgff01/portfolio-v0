@@ -27,7 +27,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
         </div>
         
         {/* Profile Photo - Larger on mobile, fixed size on desktop */}
-        <div className="absolute -bottom-10 sm:-bottom-8 left-4 w-24 h-24 sm:w-28 sm:h-28 rounded-xl overflow-hidden border-4 border-background shadow-xl">
+        <div className="absolute -bottom-10 sm:-bottom-8 left-4 w-34 h-34 sm:w-28 sm:h-28 rounded-xl overflow-hidden border-4 border-background shadow-xl">
           <Image
             src={profile.image || "/images/photo.jpg"}
             alt={profile.name}

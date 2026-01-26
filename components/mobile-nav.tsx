@@ -22,7 +22,7 @@ export default function MobileNav() {
       {/* Mobile Header */}
       <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="flex items-center justify-between px-4 py-3">
-          <span className="font-semibold text-foreground">MGF</span>
+          <span className="font-semibold text-foreground">mgff01</span>
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="p-2 text-foreground hover:text-primary transition-colors"
