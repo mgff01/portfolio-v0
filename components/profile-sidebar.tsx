@@ -121,7 +121,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
           <Linkedin className="w-6 h-6" />
         </a>
         <a
-          href={}
+          href={"https://github.com/mgff01"}
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground hover:text-primary transition-colors duration-200"
