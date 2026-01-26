@@ -124,7 +124,7 @@ export default function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
 
         {/* Pagination Dots */}
         <div className="flex items-center justify-center gap-2 mt-6">
-          {Array.from({ length: totalSlides }).map((_, index) => (
+          {Array.from({ length: totalSlides-1 }).map((_, index) => (
             <motion.button
               key={index}
               onClick={() => swiperRef?.slideTo(index)}
@@ -206,11 +206,9 @@ function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
             {/* Hover Arrow */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div
-                className="w-14 h-14 rounded-full bg-primary flex items-center justify-center
-                           shadow-lg shadow-primary/30 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100
-                           transition-all duration-300"
+                className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/30 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-300 bg-background"
               >
-                <ArrowUpRight className="w-6 h-6 text-primary-foreground" />
+                <ArrowUpRight className="w-6 h-6 text-foreground" />
               </div>
             </div>
           </div>
@@ -277,10 +275,9 @@ function SeeAllCard({ index }: SeeAllCardProps) {
             <motion.div
               whileHover={{ scale: 1.1, rotate: 5 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center
-                         group-hover:bg-primary transition-colors duration-300"
+              className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center group-hover:text-foreground transition-colors duration-300"
             >
-              <ArrowRight className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+              <ArrowRight className="w-10 h-10 group-hover:text-primary-foreground transition-colors duration-300 text-foreground" />
             </motion.div>
           </div>
 
