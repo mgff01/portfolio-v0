@@ -277,7 +277,7 @@ function SeeAllCard({ index }: SeeAllCardProps) {
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
               className="w-20 h-20 rounded-full bg-primary/20 flex items-center justify-center group-hover:bg-background transition-colors duration-300"
             >
-              <ArrowRight className="w-10 h-10 text-primary group-hover:text-primary-foreground transition-colors duration-300" />
+              <ArrowRight className="w-10 h-10 group-hover:text-primary-foreground transition-colors duration-300 text-foreground" />
             </motion.div>
           </div>
 
