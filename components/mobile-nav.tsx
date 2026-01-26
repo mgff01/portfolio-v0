@@ -5,7 +5,7 @@ import { Menu, X, User, Briefcase, Award, FolderOpen } from "lucide-react";
 
 const navItems = [
   { label: "About", href: "#about", icon: User },
-  { label: "Projects", href: "#projects", icon: FolderOpen },
+  { label: "Projects", href: "/projects", icon: FolderOpen },
   { label: "Experience", href: "#experience", icon: Briefcase },
   { label: "Certifications", href: "#certifications", icon: Award },
 ];
