@@ -25,7 +25,7 @@ export default function ExperienceCard({
       {/* Icon */}
       <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden">
         <Image
-          src={icon || "/placeholder.svg"}
+          src={icon || "/Ibmec Logo.svg"}
           alt={`${title} company logo`}
           width={40}
           height={40}
