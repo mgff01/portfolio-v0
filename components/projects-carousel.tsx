@@ -208,7 +208,7 @@ function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
               <div
                 className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/30 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-300 bg-background"
               >
-                <ArrowUpRight className="w-6 h-6 text-primary-foreground" />
+                <ArrowUpRight className="w-6 h-6 text-foreground" />
               </div>
             </div>
           </div>
