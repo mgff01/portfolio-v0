@@ -17,7 +17,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
         <div className="relative w-full h-24 sm:h-28 lg:aspect-[16/9] lg:h-auto rounded-lg overflow-hidden">
           <Image
             src={profile.bannerImage || "/images/banner.jpg"}
-            alt="Banner"
+            alt="Profile banner background"
             fill
             className="object-cover"
             priority
@@ -26,11 +26,11 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
           <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
         </div>
         
-        {/* Profile Photo - Larger on mobile, fixed size on desktop */}
-        <div className="absolute -bottom-10 sm:-bottom-8 left-4 w-34 h-34 sm:w-28 sm:h-28 rounded-xl overflow-hidden border-4 border-background shadow-xl">
+        {/* Profile Photo - Prominently large */}
+        <div className="absolute -bottom-16 sm:-bottom-14 left-4 w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-xl overflow-hidden border-4 border-background shadow-xl">
           <Image
             src={profile.image || "/images/photo.jpg"}
-            alt={profile.name}
+            alt={`Profile photo of ${profile.name}`}
             fill
             className="object-cover object-top"
             priority
@@ -39,7 +39,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
       </div>
 
       {/* Name and Title - Adjusted margin for profile photo overlap */}
-      <div className="mt-6 sm:mt-4 mb-6 opacity-0 animate-fade-in-up stagger-1">
+      <div className="mt-12 sm:mt-10 mb-6 opacity-0 animate-fade-in-up stagger-1">
         <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-1 text-balance">
           {profile.name}
         </h1>
@@ -112,20 +112,20 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
       {/* Social Links */}
       <div className="flex items-center gap-6 pt-4 opacity-0 animate-fade-in-up stagger-6">
         <a
-          href={"https://www.linkedin.com/in/mgff01/"}
+          href="https://www.linkedin.com/in/mgff01/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground hover:text-primary transition-colors duration-200"
-          aria-label="LinkedIn"
+          aria-label="LinkedIn profile"
         >
           <Linkedin className="w-6 h-6" />
         </a>
         <a
-          href={"https://github.com/mgff01"}
+          href="https://github.com/mgff01"
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground hover:text-primary transition-colors duration-200"
-          aria-label="GitHub"
+          aria-label="GitHub profile"
         >
           <Github className="w-6 h-6" />
         </a>

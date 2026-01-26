@@ -33,7 +33,7 @@ export default function ProjectCard({
         <div className="relative aspect-video overflow-hidden">
           <Image
             src={image || "/placeholder.svg"}
-            alt={title}
+            alt={`Screenshot of ${title} project`}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
