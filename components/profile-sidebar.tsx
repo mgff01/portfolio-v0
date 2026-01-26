@@ -112,7 +112,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
       {/* Social Links */}
       <div className="flex items-center gap-6 pt-4 opacity-0 animate-fade-in-up stagger-6">
         <a
-          href={profile.social.linkedin}
+          href={"https://www.linkedin.com/in/mgff01/"}
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground hover:text-primary transition-colors duration-200"
@@ -121,7 +121,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
           <Linkedin className="w-6 h-6" />
         </a>
         <a
-          href={profile.social.github}
+          href={}
           target="_blank"
           rel="noopener noreferrer"
           className="text-foreground hover:text-primary transition-colors duration-200"
