@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Linkedin, Github } from "lucide-react";
+import { Linkedin, Github, Mail } from "lucide-react";
 import type { Profile } from "@/types/portfolio";
 
 interface ProfileSidebarProps {
@@ -128,6 +128,13 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
           aria-label="GitHub profile"
         >
           <Github className="w-6 h-6" />
+        </a>
+        <a
+          href="mailto:mauriciogfreire@gmail.com"
+          className="text-foreground hover:text-primary transition-colors duration-200"
+          aria-label="Send email"
+        >
+          <Mail className="w-6 h-6" />
         </a>
       </div>
     </aside>

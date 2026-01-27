@@ -102,6 +102,8 @@ export default function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
               1280: { slidesPerView: 2, spaceBetween: 24 },
             }}
             grabCursor
+            touchStartPreventDefault={false}
+            threshold={10}
             className="!overflow-hidden !px-1 !py-2"
           >
             {projects.map((project, index) => (
