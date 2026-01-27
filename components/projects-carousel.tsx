@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -163,6 +163,32 @@ interface ProjectSlideProps {
 }
 
 function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
+  const touchStartPos = useRef({ x: 0, y: 0 });
+  
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartPos.current.x = e.touches[0].clientX;
+    touchStartPos.current.y = e.touches[0].clientY;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaX = Math.abs(touchEndX - touchStartPos.current.x);
+    const deltaY = Math.abs(touchEndY - touchStartPos.current.y);
+    
+    // Only trigger if it's a tap (minimal movement)
+    if (deltaX < 10 && deltaY < 10) {
+      e.preventDefault();
+      onSelect();
+    }
+  };
+
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    onSelect();
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
@@ -174,9 +200,19 @@ function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
       }}
       className="h-full"
     >
-      <button
-        onClick={onSelect}
-        className="group block w-full h-full text-left"
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={handleClick}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            onSelect();
+          }
+        }}
+        className="group block w-full h-full text-left cursor-pointer"
         aria-label={`View ${project.title} details`}
       >
         <motion.div
@@ -239,7 +275,7 @@ function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
             )}
           </div>
         </motion.div>
-      </button>
+      </div>
     </motion.div>
   );
 }
