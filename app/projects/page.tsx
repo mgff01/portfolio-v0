@@ -110,18 +110,18 @@ export default function ProjectsPage() {
               <SlidersHorizontal className="w-4 h-4" />
             </div>
             {allTags.map((tag) => (
-              <button
+                <button
                 key={tag}
                 onClick={() => toggleTag(tag)}
                 className={`px-4 py-2 text-sm font-medium rounded-full border whitespace-nowrap
-                           transition-all duration-200 ${
-                             selectedTags.includes(tag)
-                               ? "bg-primary text-primary-foreground border-primary"
-                               : "bg-transparent border-border text-foreground hover:border-primary hover:text-primary"
-                           }`}
-              >
+                       transition-all duration-200 ${
+                       selectedTags.includes(tag)
+                         ? "bg-primary text-background border-primary"
+                         : "bg-transparent border-border text-foreground hover:border-primary hover:text-primary"
+                       }`}
+                >
                 {tag}
-              </button>
+                </button>
             ))}
             {(selectedTags.length > 0 || searchQuery) && (
               <button

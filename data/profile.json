@@ -8,12 +8,14 @@
     "HTML",
     "CSS",
     "JavaScript",
+    "Figma",
     "React",
     "Next.js",
     "TypeScript",
     "Node.js",
-    "Three.js",
-    "Tailwind"
+    "Python",
+    "C++",
+    "Fusion360"
   ],
   "languages": [
     { "name": "Portuguese", "level": "Fluent", "flag": "🇧🇷", "progress": 100 },
