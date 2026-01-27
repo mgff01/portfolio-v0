@@ -174,7 +174,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   {project.liveUrl && (
                     <Button
                       asChild
-                      className="flex-1 h-12 text-base font-medium gap-2 bg-primary hover:bg-primary/90"
+                      className="flex-1 h-12 text-background font-medium gap-2 bg-primary hover:bg-primary/90"
                     >
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="w-5 h-5" />
