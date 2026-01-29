@@ -124,7 +124,7 @@ export default function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
 
         {/* Pagination Dots */}
         <div className="flex items-center justify-center gap-2 mt-6">
-          {Array.from({ length: totalSlides-1 }).map((_, index) => (
+          {Array.from({ length: totalSlides - 1 }).map((_, index) => (
             <motion.button
               key={index}
               onClick={() => swiperRef?.slideTo(index)}

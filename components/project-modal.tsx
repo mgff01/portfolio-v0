@@ -110,6 +110,16 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   {project.title}
                 </motion.h2>
 
+                {/* Project Date */}
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-lg text-muted-foreground font-bold mb-4 absolute right-8 top-8 md:top-10 md:right-10"
+                >
+                  {project.date || 2025}
+                </motion.p>
+
                 {/* Short Description */}
                 <motion.p 
                   initial={{ opacity: 0, y: 10 }}

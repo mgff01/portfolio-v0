@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import ProjectsCarousel from "./projects-carousel";
 import ExperienceCard from "./experience-card";
 import CertificationCard from "./certification-card";
 import SectionTitle from "./section-title";
 import ProjectCard from "./project-card";
+import ProjectModal from "./project-modal";
 import type { Project, Experience, Certification } from "@/types/portfolio";
 
 interface MainContentProps {
@@ -18,6 +20,18 @@ export default function MainContent({
   experiences,
   certifications,
 }: MainContentProps) {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = (project: Project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => setSelectedProject(null), 300);
+  };
   return (
     <main className="lg:ml-[340px] min-h-screen p-6 lg:p-10 pt-20 lg:pt-10 relative z-10">
       {/* Left gradient mask for smooth edge transition */}
@@ -41,7 +55,7 @@ export default function MainContent({
                 title={project.title}
                 description={project.description}
                 image={project.image}
-                href={project.href}
+                onClick={() => openModal(project)}
                 delay={0.2 + index * 0.1}
               />
             ))}
@@ -80,6 +94,13 @@ export default function MainContent({
           </div>
         </section>
       </div>
+
+      {/* Project Modal for Mobile */}
+      <ProjectModal 
+        project={selectedProject}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </main>
   );
 }

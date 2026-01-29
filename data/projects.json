@@ -2,10 +2,11 @@
    {
     "id": "ibmec-ideas",
     "title": "Ibmec Ideas",
+    "date": "2023",
     "description": "A platform for showcasing and managing academic projects, fostering collaboration between students and faculty.",
     "fullDescription": 
     "A platform for showcasing and managing academic projects, fostering collaboration between students and faculty.",
-    "image": "/images/ibmec-ideas.png",
+    "image": "/images/ibmec-ideas.jpg",
     "tags": ["React", "Figma"],
     "repoUrl": "https://github.com/mgff01/IBMEC-Ideas",
     "liveUrl": "https://ibmec-ideas.com"

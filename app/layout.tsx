@@ -13,7 +13,6 @@ const _sourceSerif_4 = V0_Font_Source_Serif_4({ subsets: ['latin'], weight: ["20
 export const metadata: Metadata = {
   title: 'Mauricio Gomes Freire Filho | Portfolio',
   description: 'Computer Engineer Student specializing in Front-End and Back-End development with advanced skills in visual and 3D design.',
-  generator: 'v0.app',
   icons: {
     icon: [
       {

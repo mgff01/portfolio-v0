@@ -2,14 +2,16 @@
   {
     "id": "piloto-uas-pro",
     "title": "Piloto UAS Pro",
-    "issuer": "ITARC - Professional Drone Pilot Certification",
+    "issuer": "Certified to operate drones for commercial and professional purposes, ensuring compliance with safety regulations and best practices.",
+    "description": "Certified to operate drones for commercial and professional purposes, ensuring compliance with safety regulations and best practices.",
     "icon": "/images/logo-itarc.svg",
     "date": "2023"
   },
   {
     "id": "workshop-ia",
     "title": "WorkShop IA",
-    "issuer": "SENAC - Artificial Intelligence Workshop",
+    "issuer": "Workshop focused on the fundamentals of artificial intelligence and its applications.",
+    "description": "Workshop focused on the fundamentals of artificial intelligence and its applications.",
     "icon": "/images/logo-senac.svg",
     "date": "2023"
   }

@@ -10,19 +10,24 @@ interface ProjectCardProps {
   image: string;
   href?: string;
   delay?: number;
+  onClick?: () => void;
 }
 
 export default function ProjectCard({
   title,
   description,
+  date,
   image,
   href = "#",
   delay = 0,
+  onClick,
 }: ProjectCardProps) {
+  const Component = onClick ? "button" : Link;
+  
   return (
-    <Link
-      href={href}
-      className="group block opacity-0 animate-fade-in-up"
+    <Component
+      {...(onClick ? { onClick, type: "button" } : { href })}
+      className="group block opacity-0 animate-fade-in-up text-left"
       style={{ animationDelay: `${delay}s` }}
     >
       <div
@@ -52,6 +57,11 @@ export default function ProjectCard({
           </div>
         </div>
 
+       {/* Project Date */}
+    <div className="text-lg text-muted-foreground font-bold mb-4 absolute right-8 top-8 md:top-10 md:right-10">
+                  {date || 2025}  
+                </div>
+                  
         {/* Content */}
         <div className="p-4">
           <h3 className="text-base font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-200">
@@ -60,6 +70,6 @@ export default function ProjectCard({
           <p className="text-sm text-muted-foreground line-clamp-2">{description}</p>
         </div>
       </div>
-    </Link>
+    </Component>
   );
 }
