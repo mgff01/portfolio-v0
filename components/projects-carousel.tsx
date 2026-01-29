@@ -221,6 +221,17 @@ function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
             <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
               {project.description}
             </p>
+
+            {/* Project Date */}
+                <motion.p 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="text-lg text-muted-foreground font-bold mb-4 absolute right-8 md:right-10"
+                >
+                  {project.date || 2025}
+                </motion.p>
+
             
             {/* Tags - Always at bottom */}
             {project.tags && project.tags.length > 0 && (
