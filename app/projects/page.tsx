@@ -178,7 +178,7 @@ export default function ProjectsPage() {
             </p>
             <button
               onClick={clearFilters}
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-lg font-medium
+              className="px-4 py-2 bg-primary text-background rounded-lg font-medium
                         hover:bg-primary/90 transition-colors duration-200"
             >
               Clear all filters

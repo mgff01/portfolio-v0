@@ -115,7 +115,7 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
           href="https://www.linkedin.com/in/mgff01/"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-foreground hover:text-primary transition-colors duration-200"
+          className="text-foreground hover:text-muted-foreground transition-colors duration-200 "
           aria-label="LinkedIn profile"
         >
           <Linkedin className="w-6 h-6" />
@@ -124,14 +124,14 @@ export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
           href="https://github.com/mgff01"
           target="_blank"
           rel="noopener noreferrer"
-          className="text-foreground hover:text-primary transition-colors duration-200"
+          className="text-foreground hover:text-muted-foreground transition-colors duration-200"
           aria-label="GitHub profile"
         >
           <Github className="w-6 h-6" />
         </a>
         <a
           href="mailto:mauricio050607@gmail.com"
-          className="text-foreground hover:text-primary transition-colors duration-200"
+          className="text-foreground hover:text-muted-foreground transition-colors duration-200"
           aria-label="Send an email"
         >
           <Mail className="w-6 h-6" />
