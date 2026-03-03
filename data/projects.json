@@ -9,7 +9,7 @@
     "image": "/images/ibmec_ideas.png",
     "tags": ["React", "Figma"],
     "repoUrl": "https://github.com/mgff01/IBMEC-Ideas",
-    "liveUrl": "https://ibmec-ideas.com"
+    "liveUrl": "https://ibmec-ideas.vercel.app"
   },
   {
     "id": "kroma",
