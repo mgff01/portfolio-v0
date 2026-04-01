@@ -10,7 +10,7 @@ interface ProfileSidebarProps {
 
 export default function ProfileSidebar({ profile }: ProfileSidebarProps) {
   return (
-    <aside className="w-full lg:w-[340px] lg:min-h-screen bg-background p-4 sm:p-6 lg:p-8 flex flex-col lg:fixed lg:left-0 lg:top-0 lg:bottom-0 lg:overflow-y-auto z-50 lg:border-r lg:border-border/30">
+    <aside className="w-full lg:w-[340px] lg:min-h-screen bg-background p-4 sm:p-6 lg:p-8 flex flex-col lg:fixed lg:left-0 lg:top-0 lg:bottom-0 lg:overflow-y-auto z-50 lg:border-r lg:border-border/30 ">
       {/* Hero Section - Responsive Banner with Profile Photo Overlay */}
       <div className="relative mb-8 sm:mb-6 opacity-0 animate-fade-in-up">
         {/* Banner Image - Full width, limited height on mobile */}

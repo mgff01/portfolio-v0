@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import ProjectsCarousel from "./projects-carousel";
 import ExperienceCard from "./experience-card";
 import CertificationCard from "./certification-card";
@@ -40,7 +42,24 @@ export default function MainContent({
       <div className="max-w-4xl relative">
         {/* Projects Section */}
         <section id="projects" className="mb-16 scroll-mt-20">
-          <SectionTitle delay={0.1}>Projects</SectionTitle>
+           <div className="flex items-center justify-between mb-4">
+            <h2
+              className="text-xs font-semibold text-muted-foreground uppercase tracking-wider
+                         opacity-0 animate-fade-in-up"
+              style={{ animationDelay: '0.1s' }}
+            >
+              Projects
+            </h2>
+            <Link
+              href="/projects"
+              className="group flex items-center gap-1.5 text-xs font-medium text-muted-foreground 
+                         hover:text-primary transition-colors duration-300 opacity-0 animate-fade-in-up"
+              style={{ animationDelay: '0.15s' }}
+            >
+              See All
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+            </Link>
+          </div>
           
           {/* Desktop Carousel */}
           <div className="hidden md:block">
