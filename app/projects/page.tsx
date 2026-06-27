@@ -7,16 +7,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Search, ArrowLeft, ArrowUpRight, SlidersHorizontal, X } from "lucide-react";
 import type { Project } from "@/types/portfolio";
 import ProjectModal from "@/components/project-modal";
-import projectsData from "@/data/projects.json";
-
-const projects: Project[] = projectsData;
-
-// Extract all unique tags from projects
-const allTags = Array.from(
-  new Set(projects.flatMap((p) => p.tags || []))
-).sort();
+import { useI18n } from "@/components/i18n-provider";
 
 export default function ProjectsPage() {
+  const { data: { projects, ui } } = useI18n();
+
+  // Extract all unique tags from projects
+  const allTags = useMemo(() => Array.from(
+    new Set(projects.flatMap((p) => p.tags || []))
+  ).sort(), [projects]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -75,9 +74,9 @@ export default function ProjectsPage() {
               className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               <ArrowLeft className="w-5 h-5" />
-              <span className="text-sm font-medium">Back to Home</span>
+              <span className="text-sm font-medium">{ui.backToHome || "Back to Home"}</span>
             </Link>
-            <h1 className="text-xl font-bold text-foreground">Projects</h1>
+            <h1 className="text-xl font-bold text-foreground">{ui.projects}</h1>
             <div className="w-24" /> {/* Spacer for centering */}
           </div>
 
@@ -86,7 +85,7 @@ export default function ProjectsPage() {
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search projects..."
+              placeholder={ui.searchProjects || "Search projects..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full h-12 pl-12 pr-4 bg-card border border-border rounded-full
@@ -129,7 +128,7 @@ export default function ProjectsPage() {
                 className="px-4 py-2 text-sm font-medium text-destructive hover:text-destructive/80 
                           whitespace-nowrap transition-colors duration-200"
               >
-                Clear filters
+                {ui.clearFilters || "Clear filters"}
               </button>
             )}
           </div>
@@ -171,17 +170,17 @@ export default function ProjectsPage() {
               <Search className="w-8 h-8 text-muted-foreground" />
             </div>
             <h3 className="text-lg font-semibold text-foreground mb-2">
-              No projects found
+              {ui.noProjectsFound || "No projects found"}
             </h3>
             <p className="text-muted-foreground mb-4">
-              Try adjusting your search or filters
+              {ui.tryAdjusting || "Try adjusting your search or filters"}
             </p>
             <button
               onClick={clearFilters}
               className="px-4 py-2 bg-primary text-background rounded-lg font-medium
                         hover:bg-primary/90 transition-colors duration-200"
             >
-              Clear all filters
+              {ui.clearAllFilters || "Clear all filters"}
             </button>
           </motion.div>
         )}

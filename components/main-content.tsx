@@ -9,19 +9,11 @@ import CertificationCard from "./certification-card";
 import SectionTitle from "./section-title";
 import ProjectCard from "./project-card";
 import ProjectModal from "./project-modal";
+import { useI18n } from "./i18n-provider";
 import type { Project, Experience, Certification } from "@/types/portfolio";
 
-interface MainContentProps {
-  projects: Project[];
-  experiences: Experience[];
-  certifications: Certification[];
-}
-
-export default function MainContent({
-  projects,
-  experiences,
-  certifications,
-}: MainContentProps) {
+export default function MainContent() {
+  const { data: { projects, experience: experiences, certifications, ui } } = useI18n();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,7 +40,7 @@ export default function MainContent({
                          opacity-0 animate-fade-in-up"
               style={{ animationDelay: '0.1s' }}
             >
-              Projects
+              {ui.projects}
             </h2>
             <Link
               href="/projects"
@@ -56,7 +48,7 @@ export default function MainContent({
                          hover:text-primary transition-colors duration-300 opacity-0 animate-fade-in-up"
               style={{ animationDelay: '0.15s' }}
             >
-              See All
+              {ui.seeAll}
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
             </Link>
           </div>
@@ -74,6 +66,7 @@ export default function MainContent({
                 title={project.title}
                 description={project.description}
                 image={project.image}
+                tags={project.tags}
                 onClick={() => openModal(project)}
                 delay={0.2 + index * 0.1}
               />
@@ -83,7 +76,7 @@ export default function MainContent({
 
         {/* Experience Section */}
         <section id="experience" className="mb-16 scroll-mt-20">
-          <SectionTitle delay={0.5}>Experience</SectionTitle>
+          <SectionTitle delay={0.5}>{ui.experience}</SectionTitle>
           <div className="space-y-4">
             {experiences.map((exp, index) => (
               <ExperienceCard
@@ -99,7 +92,7 @@ export default function MainContent({
 
         {/* Certifications Section */}
         <section id="certifications" className="mb-16 scroll-mt-20">
-          <SectionTitle delay={0.7}>License & Certification</SectionTitle>
+          <SectionTitle delay={0.7}>{ui.certifications}</SectionTitle>
           <div className="space-y-4">
             {certifications.map((cert, index) => (
               <CertificationCard

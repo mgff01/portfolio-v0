@@ -2,16 +2,18 @@
 
 import { useState } from "react";
 import { Menu, X, User, Briefcase, Award, FolderOpen } from "lucide-react";
-
-const navItems = [
-  { label: "About", href: "#about", icon: User },
-  { label: "Projects", href: "/projects", icon: FolderOpen },
-  { label: "Experience", href: "#experience", icon: Briefcase },
-  { label: "Certifications", href: "#certifications", icon: Award },
-];
+import { useI18n } from "./i18n-provider";
 
 export default function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const { data: { ui } } = useI18n();
+
+  const navItems = [
+    { label: ui.about, href: "#about", icon: User },
+    { label: ui.projects, href: "/projects", icon: FolderOpen },
+    { label: ui.experience, href: "#experience", icon: Briefcase },
+    { label: ui.certifications, href: "#certifications", icon: Award },
+  ];
 
   const handleNavClick = () => {
     setIsOpen(false);

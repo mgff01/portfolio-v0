@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ibmec-ideas",
+    "title": "Ibmec Ideas",
+    "date": "2025",
+    "description": "A platform for showcasing and managing academic projects, fostering collaboration between students and faculty.",
+    "fullDescription": "A platform for showcasing and managing academic projects, fostering collaboration between students and faculty.",
+    "image": "/images/ibmec_ideas.png",
+    "tags": [
+      "React",
+      "Figma"
+    ],
+    "repoUrl": "https://github.com/mgff01/IBMEC-Ideas",
+    "liveUrl": "https://ibmec-ideas.vercel.app"
+  },
+  {
+    "id": "kroma",
+    "title": "Kroma",
+    "date": "2025",
+    "description": "Technical visualization tool with CAD-like interface for engineering and architectural designs.",
+    "fullDescription": "Technical visualization tool with CAD-like interface for engineering and architectural designs.",
+    "image": "/images/kroma.png",
+    "tags": [
+      "Node.js",
+      "Fusion360",
+      "C++"
+    ],
+    "repoUrl": "https://github.com/mgff01/Kroma"
+  },
+  {
+    "id": "pbe-estagio",
+    "title": "Student Internship Management System (PBE)",
+    "date": "2026",
+    "description": "A comprehensive system designed to streamline and automate the process of submitting, reviewing, and generating internship documents.",
+    "fullDescription": "This project is a comprehensive Student Internship Management System designed to streamline and automate the process of submitting, reviewing, and generating internship documents (TCE, Reports, and Policies). Features include dynamic document generation with ConvertAPI, robust authentication, and persistent cloud database utilizing connection pooling for serverless functions.",
+    "image": "/placeholder.svg?height=400&width=700&query=management dashboard",
+    "tags": [
+      "Next.js",
+      "Django",
+      "PostgreSQL",
+      "React",
+      "Tailwind CSS"
+    ],
+    "repoUrl": "https://github.com/mgff01/back-end_vercel",
+    "liveUrl": "https://front-endvercel.vercel.app/"
+  }
+]

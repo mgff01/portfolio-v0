@@ -1,0 +1,31 @@
+{
+  "name": "Mauricio Gomes Freire Filho",
+  "title": "Estudante de Engenharia da Computação",
+  "image": "/images/photo.jpg",
+  "bannerImage": "/images/banner.jpg",
+  "about": "Combinando conhecimento técnico em desenvolvimento Front-End e Back-End com habilidades avançadas em design visual e 3D, meu foco é construir interfaces intuitivas e funcionais. Experiente em colaborar em projetos acadêmicos de alto impacto, estou preparado para resolver problemas complexos com pensamento crítico e adaptabilidade.",
+  "skills": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "TypeScript",
+    "Python",
+    "C++",
+    "React",
+    "Next.js",
+    "Django",
+    "Node.js",
+    "Tailwind CSS",
+    "PostgreSQL",
+    "Figma",
+    "Fusion360"
+  ],
+  "languages": [
+    { "name": "Português", "level": "Fluente", "flag": "🇧🇷", "progress": 100 },
+    { "name": "Inglês", "level": "Avançado", "flag": "🇺🇸", "progress": 85 }
+  ],
+  "social": {
+    "linkedin": "https://linkedin.com",
+    "github": "https://github.com"
+  }
+}

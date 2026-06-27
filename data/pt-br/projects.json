@@ -1,0 +1,47 @@
+[
+  {
+    "id": "ibmec-ideas",
+    "title": "Ibmec Ideas",
+    "date": "2025",
+    "description": "Uma plataforma para exibir e gerenciar projetos acadêmicos, promovendo a colaboração entre alunos e professores.",
+    "fullDescription": "Uma plataforma para exibir e gerenciar projetos acadêmicos, promovendo a colaboração entre alunos e professores.",
+    "image": "/images/ibmec_ideas.png",
+    "tags": [
+      "React",
+      "Figma"
+    ],
+    "repoUrl": "https://github.com/mgff01/IBMEC-Ideas",
+    "liveUrl": "https://ibmec-ideas.vercel.app"
+  },
+  {
+    "id": "kroma",
+    "title": "Kroma",
+    "date": "2025",
+    "description": "Ferramenta de visualização técnica com interface tipo CAD para projetos de engenharia e arquitetura.",
+    "fullDescription": "Ferramenta de visualização técnica com interface tipo CAD para projetos de engenharia e arquitetura.",
+    "image": "/images/kroma.png",
+    "tags": [
+      "Node.js",
+      "Fusion360",
+      "C++"
+    ],
+    "repoUrl": "https://github.com/mgff01/Kroma"
+  },
+  {
+    "id": "pbe-estagio",
+    "title": "Sistema de Gerenciamento de Estágios (PBE)",
+    "date": "2026",
+    "description": "Um sistema abrangente projetado para otimizar e automatizar o processo de envio, revisão e geração de documentos de estágio.",
+    "fullDescription": "Este projeto é um Sistema de Gerenciamento de Estágios abrangente projetado para otimizar e automatizar o processo de envio, revisão e geração de documentos de estágio (TCE, Relatórios e Apólices). Os recursos incluem geração dinâmica de documentos com ConvertAPI, autenticação robusta e banco de dados em nuvem persistente utilizando pooling de conexões para funções serverless.",
+    "image": "/placeholder.svg?height=400&width=700&query=management dashboard",
+    "tags": [
+      "Next.js",
+      "Django",
+      "PostgreSQL",
+      "React",
+      "Tailwind CSS"
+    ],
+    "repoUrl": "https://github.com/mgff01/back-end_vercel",
+    "liveUrl": "https://front-endvercel.vercel.app/"
+  }
+]

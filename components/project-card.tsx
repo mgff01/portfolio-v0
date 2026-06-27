@@ -12,6 +12,7 @@ interface ProjectCardProps {
   image: string;
   href?: string;
   delay?: number;
+  tags?: string[];
   onClick?: () => void;
 }
 
@@ -22,6 +23,7 @@ export default function ProjectCard({
   date,
   href = "#",
   delay = 0,
+  tags,
   onClick,
 }: ProjectCardProps) {
   const Component: any = onClick ? "button" : Link;
@@ -76,6 +78,25 @@ export default function ProjectCard({
           <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
             {description}
           </p>
+
+          {/* Tags */}
+          {tags && tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-3 mb-1">
+              {tags.slice(0, 3).map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2 py-1 text-[10px] sm:text-xs font-medium bg-primary/10 text-primary rounded-md"
+                >
+                  {tag}
+                </span>
+              ))}
+              {tags.length > 3 && (
+                <span className="px-2 py-1 text-[10px] sm:text-xs font-medium bg-muted text-muted-foreground rounded-md">
+                  +{tags.length - 3}
+                </span>
+              )}
+            </div>
+          )}
 
           {date && (
             <div className="text-sm text-muted-foreground mt-3">{date}</div>

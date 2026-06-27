@@ -1,0 +1,18 @@
+[
+  {
+    "id": "piloto-uas-pro",
+    "title": "Piloto UAS Pro",
+    "issuer": "Certificado para operar drones para fins comerciais e profissionais, garantindo conformidade com regulamentos de segurança e melhores práticas.",
+    "description": "Certificado para operar drones para fins comerciais e profissionais, garantindo conformidade com regulamentos de segurança e melhores práticas.",
+    "icon": "/images/logo-itarc.svg",
+    "date": "2023"
+  },
+  {
+    "id": "workshop-ia",
+    "title": "WorkShop IA",
+    "issuer": "Workshop focado nos fundamentos da inteligência artificial e suas aplicações.",
+    "description": "Workshop focado nos fundamentos da inteligência artificial e suas aplicações.",
+    "icon": "/images/logo-senac.svg",
+    "date": "2023"
+  }
+]

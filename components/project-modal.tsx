@@ -5,6 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Github, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useI18n } from "./i18n-provider";
 import type { Project } from "@/types/portfolio";
 
 interface ProjectModalProps {
@@ -14,6 +15,8 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
+  const { data: { ui } } = useI18n();
+
   // Close on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
@@ -177,7 +180,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     >
                       <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
                         <Github className="w-5 h-5" />
-                        View Repository
+                        {ui.sourceCode}
                       </a>
                     </Button>
                   )}
@@ -188,7 +191,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                     >
                       <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="w-5 h-5" />
-                        Visit Site
+                        {ui.viewLive}
                       </a>
                     </Button>
                   )}
