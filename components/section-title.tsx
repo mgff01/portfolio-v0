@@ -1,17 +1,13 @@
-import React from "react"
-interface SectionTitleProps {
-  children: React.ReactNode;
-  delay?: number;
-}
+import type { ReactNode } from "react";
 
-export default function SectionTitle({ children, delay = 0 }: SectionTitleProps) {
+export default function SectionTitle({ children, index }: { children: ReactNode; index: string }) {
   return (
-    <h2
-      className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4
-                    opacity-0 animate-fade-in-up"
-      style={{ animationDelay: `${delay}s` }}
-    >
-      {children}
-    </h2>
+    <div className="flex items-center gap-3">
+      <span className="font-mono text-[10px] font-semibold text-primary">{index}</span>
+      <h2 className="font-mono text-xs font-semibold uppercase tracking-[0.16em] text-foreground/85">
+        {children}
+      </h2>
+      <span className="h-px w-10 bg-border" />
+    </div>
   );
 }

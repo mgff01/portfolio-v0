@@ -1,244 +1,101 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, A11y } from "swiper/modules";
-import type { Swiper as SwiperType } from "swiper";
-import { motion } from "framer-motion";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import type { Project } from "@/types/portfolio";
-import ProjectModal from "./project-modal";
-
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+import ProjectCard from "./project-card";
 
 interface ProjectsCarouselProps {
   projects: Project[];
+  onSelect: (project: Project) => void;
 }
 
-export default function ProjectsCarousel({ projects }: ProjectsCarouselProps) {
-  const [swiperRef, setSwiperRef] = useState<SwiperType | null>(null);
+export default function ProjectsCarousel({ projects, onSelect }: ProjectsCarouselProps) {
+  const trackRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isBeginning, setIsBeginning] = useState(true);
-  const [isEnd, setIsEnd] = useState(false);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAtStart, setIsAtStart] = useState(true);
+  const [isAtEnd, setIsAtEnd] = useState(projects.length <= 1);
 
-  const handlePrev = () => swiperRef?.slidePrev();
-  const handleNext = () => swiperRef?.slideNext();
+  const updatePosition = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
 
-  const openModal = (project: Project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
+    const firstSlide = track.firstElementChild as HTMLElement | null;
+    const slideWidth = firstSlide?.offsetWidth ?? track.clientWidth;
+    const gap = Number.parseFloat(getComputedStyle(track).columnGap || "0");
+    const nextIndex = Math.round(track.scrollLeft / Math.max(slideWidth + gap, 1));
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 300);
+    setActiveIndex(Math.min(nextIndex, projects.length - 1));
+    setIsAtStart(track.scrollLeft <= 2);
+    setIsAtEnd(track.scrollLeft + track.clientWidth >= track.scrollWidth - 2);
+  }, [projects.length]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    updatePosition();
+    const observer = new ResizeObserver(updatePosition);
+    observer.observe(track);
+    return () => observer.disconnect();
+  }, [updatePosition]);
+
+  const scrollBySlide = (direction: 1 | -1) => {
+    const track = trackRef.current;
+    const firstSlide = track?.firstElementChild as HTMLElement | null;
+    if (!track || !firstSlide) return;
+
+    const gap = Number.parseFloat(getComputedStyle(track).columnGap || "0");
+    track.scrollBy({ left: direction * (firstSlide.offsetWidth + gap), behavior: "smooth" });
   };
 
   return (
-    <>
-      <div className="relative group/carousel">
-        {/* Navigation Arrows - Desktop Only */}
-        <motion.button
-          onClick={handlePrev}
-          disabled={isBeginning}
-          initial={{ opacity: 0 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 z-30 
-                     w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center
-                     transition-all duration-300 hidden lg:flex shadow-lg
-                     ${isBeginning 
-                       ? "opacity-30 cursor-not-allowed" 
-                       : "opacity-0 group-hover/carousel:opacity-100 hover:bg-primary hover:border-primary hover:text-primary-foreground"
-                     }`}
-          aria-label="Previous project"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </motion.button>
-
-        <motion.button
-          onClick={handleNext}
-          disabled={isEnd}
-          initial={{ opacity: 0 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-2 z-30 
-                     w-10 h-10 rounded-full bg-card border border-border flex items-center justify-center
-                     transition-all duration-300 hidden lg:flex shadow-lg
-                     ${isEnd 
-                       ? "opacity-30 cursor-not-allowed" 
-                       : "opacity-0 group-hover/carousel:opacity-100 hover:bg-primary hover:border-primary hover:text-primary-foreground"
-                     }`}
-          aria-label="Next project"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </motion.button>
-
-        {/* Swiper Carousel */}
-        <div className="overflow-hidden rounded-xl">
-          <Swiper
-            modules={[Navigation, Pagination, A11y]}
-            onSwiper={setSwiperRef}
-            onSlideChange={(swiper) => {
-              setActiveIndex(swiper.activeIndex);
-              setIsBeginning(swiper.isBeginning);
-              setIsEnd(swiper.isEnd);
-            }}
-            spaceBetween={24}
-            slidesPerView={1}
-            breakpoints={{
-              640: { slidesPerView: 1.1, spaceBetween: 16 },
-              768: { slidesPerView: 1.3, spaceBetween: 20 },
-              1024: { slidesPerView: 1.8, spaceBetween: 24 },
-              1280: { slidesPerView: 2, spaceBetween: 24 },
-            }}
-            grabCursor
-            className="!overflow-hidden !px-1 !py-2"
+    <div>
+      <div
+        ref={trackRef}
+        onScroll={updatePosition}
+        className="scrollbar-hide flex snap-x snap-mandatory gap-4 overflow-x-auto pb-4 sm:gap-5"
+      >
+        {projects.map((project, index) => (
+          <div
+            key={project.id}
+            className="w-[88%] shrink-0 snap-start sm:w-[70%] xl:w-[calc(50%_-_0.625rem)]"
           >
-            {projects.map((project, index) => (
-              <SwiperSlide key={project.id} className="!h-auto">
-                <ProjectSlide 
-                  project={project} 
-                  index={index} 
-                  isActive={index === activeIndex}
-                  onSelect={() => openModal(project)}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
+            <ProjectCard project={project} onSelect={() => onSelect(project)} priority={index === 0} />
+          </div>
+        ))}
+      </div>
 
-        {/* Pagination Dots */}
-        <div className="flex items-center justify-center gap-2 mt-6">
-          {Array.from({ length: projects.length }).map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => swiperRef?.slideTo(index)}
-              initial={false}
-              animate={{
-                width: index === activeIndex ? 24 : 8,
-                backgroundColor: index === activeIndex ? "var(--primary)" : "var(--border)",
-              }}
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              className="h-2 rounded-full"
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+      <div className="mt-2 flex items-center justify-between">
+        <span className="font-mono text-[11px] tracking-[0.16em] text-muted-foreground" aria-live="polite">
+          {String(activeIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+        </span>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={() => scrollBySlide(-1)}
+            disabled={isAtStart}
+            aria-label="Previous project"
+            className="rounded-full border-border bg-card/80 hover:border-primary/50 hover:text-primary"
+          >
+            <ChevronLeft />
+          </Button>
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={() => scrollBySlide(1)}
+            disabled={isAtEnd}
+            aria-label="Next project"
+            className="rounded-full border-border bg-card/80 hover:border-primary/50 hover:text-primary"
+          >
+            <ChevronRight />
+          </Button>
         </div>
       </div>
-      {/* Project Modal */}
-      <ProjectModal 
-        project={selectedProject}
-        isOpen={isModalOpen}
-        onClose={closeModal}
-      />
-    </>
-  );
-}
-
-interface ProjectSlideProps {
-  project: Project;
-  index: number;
-  isActive: boolean;
-  onSelect: () => void;
-}
-
-function ProjectSlide({ project, index, onSelect }: ProjectSlideProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ 
-        duration: 0.5, 
-        delay: index * 0.1,
-        ease: [0.25, 0.46, 0.45, 0.94]
-      }}
-      className="h-full"
-    >
-      <button
-        onClick={onSelect}
-        className="group block w-full h-full text-left"
-        aria-label={`View ${project.title} details`}
-      >
-        <motion.div
-          whileHover={{ y: -8, scale: 1.02 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-          className="relative overflow-hidden rounded-xl bg-card border border-border/50 
-                     transition-shadow duration-500 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10
-                     h-full flex flex-col"
-        >
-          {/* Image Container - Fixed aspect ratio */}
-          <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0">
-            <motion.div
-              whileHover={{ scale: 1.1 }}
-              transition={{ duration: 0.7, ease: "easeOut" }}
-              className="relative w-full h-full"
-            >
-              <Image
-                src={project.image || "/placeholder.svg"}
-                alt={`Screenshot of ${project.title} project`}
-                fill
-                className="object-cover"
-              />
-            </motion.div>
-            
-            {/* Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent 
-                           opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            
-            {/* Hover Arrow */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div
-                className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/30 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-300 bg-background"
-              >
-                <ArrowUpRight className="w-6 h-6 text-foreground" />
-              </div>
-            </div>
-          </div>
-
-          {/* Content - Fixed height */}
-          <div className="p-5 flex flex-col flex-grow">
-            <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-1">
-              {project.title}
-            </h3>
-            <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
-              {project.description}
-            </p>
-
-            {/* Project Date */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-lg text-muted-foreground font-bold mb-4 absolute right-8 md:right-10"
-                >
-                  {project.date || 2025}
-                </motion.p>
-
-            
-            {/* Tags - Always at bottom */}
-            {project.tags && project.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mt-3">
-                {project.tags.slice(0, 3).map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-md"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </div>
-        </motion.div>
-      </button>
-    </motion.div>
+    </div>
   );
 }

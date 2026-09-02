@@ -2,6 +2,7 @@
   "projects": "Projects",
   "seeAll": "See All",
   "experience": "Experience",
+  "education": "Education",
   "certifications": "License & Certification",
   "viewLive": "View Live",
   "sourceCode": "Source Code",
@@ -14,5 +15,7 @@
   "clearFilters": "Clear filters",
   "clearAllFilters": "Clear all filters",
   "noProjectsFound": "No projects found",
-  "tryAdjusting": "Try adjusting your search or filters"
+  "tryAdjusting": "Try adjusting your search or filters",
+  "introTitle": "Software, interfaces, and ideas built with purpose.",
+  "introText": "Selected work across engineering, development, and visual design."
 }

@@ -2,6 +2,7 @@
   "projects": "Projetos",
   "seeAll": "Ver Todos",
   "experience": "Experiência",
+  "education": "Formação Acadêmica",
   "certifications": "Licenças e Certificações",
   "viewLive": "Acessar Ao Vivo",
   "sourceCode": "Código Fonte",
@@ -14,5 +15,7 @@
   "clearFilters": "Limpar filtros",
   "clearAllFilters": "Limpar todos os filtros",
   "noProjectsFound": "Nenhum projeto encontrado",
-  "tryAdjusting": "Tente ajustar sua busca ou filtros"
+  "tryAdjusting": "Tente ajustar sua busca ou filtros",
+  "introTitle": "Software, interfaces e ideias construídas com propósito.",
+  "introText": "Uma seleção de projetos entre engenharia, desenvolvimento e design visual."
 }

@@ -6,10 +6,18 @@ export interface Profile {
   about: string;
   skills: string[];
   languages: Language[];
+  education: Education;
   social: {
     linkedin: string;
     github: string;
+    email: string;
   };
+}
+
+export interface Education {
+  institution: string;
+  degree: string;
+  period: string;
 }
 
 export interface Language {
@@ -24,6 +32,7 @@ export interface Project {
   title: string;
   description: string;
   fullDescription?: string;
+  date?: string;
   image: string;
   href?: string;
   tags?: string[];
@@ -43,7 +52,8 @@ export interface Experience {
 export interface Certification {
   id: string;
   title: string;
-  issuer: string;
-  icon: string;
+  issuer?: string;
+  icon?: string;
   date?: string;
+  description?: string;
 }

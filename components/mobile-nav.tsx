@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, X, User, Briefcase, Award, FolderOpen } from "lucide-react";
+import { Award, Briefcase, FolderOpen, GraduationCap, Menu, User, X } from "lucide-react";
 import { useI18n } from "./i18n-provider";
 
 export default function MobileNav() {
@@ -12,6 +12,7 @@ export default function MobileNav() {
     { label: ui.about, href: "#about", icon: User },
     { label: ui.projects, href: "/projects", icon: FolderOpen },
     { label: ui.experience, href: "#experience", icon: Briefcase },
+    { label: ui.education, href: "#education", icon: GraduationCap },
     { label: ui.certifications, href: "#certifications", icon: Award },
   ];
 
@@ -21,38 +22,42 @@ export default function MobileNav() {
 
   return (
     <>
-      {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="flex items-center justify-between px-4 py-3">
-          <span className="font-semibold text-foreground">mgff01</span>
+      <header className="fixed inset-x-0 top-0 z-[70] border-b border-border/70 bg-background/80 backdrop-blur-xl lg:hidden">
+        <div className="flex h-16 items-center justify-between px-5">
+          <a href="#about" className="font-mono text-sm font-semibold tracking-tight text-foreground">
+            mgff01<span className="text-primary">.</span>
+          </a>
           <button
+            type="button"
             onClick={() => setIsOpen(!isOpen)}
-            className="p-2 text-foreground hover:text-primary transition-colors"
+            className="grid size-10 place-items-center text-foreground transition-colors hover:text-primary"
             aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
+            aria-controls="mobile-navigation"
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isOpen ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
         </div>
       </header>
 
-      {/* Mobile Menu Overlay */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 bg-background/98 backdrop-blur-md transition-all duration-300 ${
+        id="mobile-navigation"
+        className={`fixed inset-0 z-[60] bg-background/95 backdrop-blur-xl transition-all duration-300 lg:hidden ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
+        aria-hidden={!isOpen}
       >
-        <nav className="flex flex-col items-center justify-center h-full gap-6">
+        <nav className="flex h-full flex-col justify-center gap-3 px-6 pt-16">
           {navItems.map((item, index) => (
             <a
               key={item.label}
               href={item.href}
               onClick={handleNavClick}
-              className={`flex items-center gap-3 text-xl font-medium text-foreground 
-                         hover:text-primary transition-all duration-200 
+              className={`flex items-center gap-4 rounded-2xl border border-transparent px-5 py-4 text-lg font-medium text-foreground transition-all duration-200 hover:border-border hover:bg-card hover:text-primary
                          ${isOpen ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}
               style={{ transitionDelay: isOpen ? `${index * 0.1}s` : "0s" }}
             >
-              <item.icon className="w-5 h-5" />
+              <item.icon className="size-5 text-primary" />
               {item.label}
             </a>
           ))}

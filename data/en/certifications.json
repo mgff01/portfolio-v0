@@ -14,5 +14,19 @@
     "description": "Workshop focused on the fundamentals of artificial intelligence and its applications.",
     "icon": "/images/logo-senac.svg",
     "date": "2023"
+  },
+  {
+    "id": "office-adobe-premiere",
+    "title": "Microsoft Office / Adobe Premiere"
+  },
+  {
+    "id": "back-end-project",
+    "title": "Back-End Project",
+    "icon": "/images/Ibmec Logo.svg"
+  },
+  {
+    "id": "front-end-certificate",
+    "title": "Front-End Certificate",
+     "icon": "/images/Ibmec Logo.svg"
   }
 ]

@@ -1,45 +1,40 @@
-"use client";
-
 import Image from "next/image";
+import type { Experience } from "@/types/portfolio";
 
-interface ExperienceCardProps {
-  title: string;
-  description: string;
-  icon: string;
-  delay?: number;
-}
-
-export default function ExperienceCard({
-  title,
-  description,
-  icon,
-  delay = 0,
-}: ExperienceCardProps) {
+export default function ExperienceCard({ experience }: { experience: Experience }) {
   return (
-    <div
-      className="flex items-start gap-4 p-4 bg-card rounded-lg border border-border/50
-                    hover:border-border transition-all duration-300 opacity-0 animate-fade-in-up
-                    hover:translate-x-1"
-      style={{ animationDelay: `${delay}s` }}
-    >
-      {/* Icon */}
-      <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center overflow-hidden">
+    <article className="group grid gap-4 rounded-2xl border border-border/75 bg-card/75 p-5 transition-all hover:border-primary/35 hover:bg-card sm:grid-cols-[auto_1fr_auto] sm:items-center sm:p-6">
+      <div className="grid size-14 place-items-center overflow-hidden rounded-2xl border border-border bg-background/50 p-0">
         <Image
-          src={icon || "/images/Ibmec Logo.svg"}
-          alt={`${title} company logo`}
-          width={40}
-          height={40}
-          className="object-contain"
+          src={experience.icon || "/images/Ibmec Logo.svg"}
+          alt=""
+          width={56}
+          height={56}
+          className="size-full rounded-[0.95rem] object-cover"
         />
       </div>
 
-      {/* Content */}
-      <div className="flex-1 min-w-0">
-        <h3 className="text-sm font-semibold text-foreground mb-1">{title}</h3>
-        <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2">
-          {description}
+      <div className="min-w-0">
+        <div className="mb-1 flex flex-wrap items-center gap-x-2 gap-y-1">
+          <h3 className="text-sm font-semibold text-foreground group-hover:text-primary">
+            {experience.title}
+          </h3>
+          {experience.company && (
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
+              {experience.company}
+            </span>
+          )}
+        </div>
+        <p className="text-xs leading-5 text-muted-foreground sm:text-sm sm:leading-6">
+          {experience.description}
         </p>
       </div>
-    </div>
+
+      {experience.period && (
+        <span className="whitespace-nowrap rounded-full border border-border px-3 py-1.5 font-mono text-[10px] text-muted-foreground">
+          {experience.period}
+        </span>
+      )}
+    </article>
   );
 }

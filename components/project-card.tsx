@@ -1,108 +1,73 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { motion } from "framer-motion";
+import type { Project } from "@/types/portfolio";
 
 interface ProjectCardProps {
-  title: string;
-  description: string;
-  date?: string;
-  image: string;
-  href?: string;
-  delay?: number;
-  tags?: string[];
-  onClick?: () => void;
+  project: Project;
+  onSelect: () => void;
+  priority?: boolean;
 }
 
-export default function ProjectCard({
-  title,
-  description,
-  image,
-  date,
-  href = "#",
-  delay = 0,
-  tags,
-  onClick,
-}: ProjectCardProps) {
-  const Component: any = onClick ? "button" : Link;
-
+export default function ProjectCard({ project, onSelect, priority = false }: ProjectCardProps) {
   return (
-    <Component
-      {...(onClick ? { onClick, type: "button" } : { href })}
-      className="group block opacity-0 animate-fade-in-up text-left"
-      style={{ animationDelay: `${delay}s` }}
+    <button
+      type="button"
+      onClick={onSelect}
+      className="group block h-full w-full text-left focus-visible:outline-none"
+      aria-label={`View ${project.title} details`}
     >
-      <div
-        className="relative overflow-hidden rounded-xl bg-card border border-border/50 
-                   transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10
-                   h-full flex flex-col"
-      >
-        {/* Image Container - uniform aspect */}
-        <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="relative w-full h-full"
-          >
-            <Image
-              src={image || "/placeholder.svg"}
-              alt={title}
-              fill
-              className="object-cover"
-            />
-          </motion.div>
-
-          {/* Gradient Overlay */}
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent 
-                          opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      <article className="relative flex h-full flex-col overflow-hidden rounded-2xl border border-border/80 bg-card/90 shadow-[0_18px_50px_rgb(0_0_0/0.18)] transition-all duration-300 group-hover:-translate-y-1 group-hover:border-primary/50 group-hover:shadow-[0_24px_70px_rgb(0_0_0/0.32)] group-focus-visible:ring-2 group-focus-visible:ring-primary group-focus-visible:ring-offset-4 group-focus-visible:ring-offset-background">
+        <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+          <Image
+            src={project.image || "/placeholder.svg"}
+            alt={`Screenshot of ${project.title}`}
+            fill
+            sizes="(min-width: 1280px) 500px, (min-width: 768px) 50vw, 100vw"
+            className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+            priority={priority}
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-card via-transparent to-black/10" />
 
-          {/* Hover Arrow */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/30 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-300 bg-background"
-            >
-              <ArrowUpRight className="w-6 h-6 text-foreground" />
-            </div>
-          </div>
+          {project.date && (
+            <span className="absolute left-4 top-4 rounded-full border border-white/15 bg-black/45 px-3 py-1 font-mono text-[10px] font-semibold tracking-[0.14em] text-white backdrop-blur-md">
+              {project.date}
+            </span>
+          )}
+
+          <span className="absolute right-4 top-4 grid size-10 place-items-center rounded-full border border-white/15 bg-black/45 text-white backdrop-blur-md transition-all duration-300 group-hover:rotate-6 group-hover:border-primary/70 group-hover:bg-primary group-hover:text-primary-foreground">
+            <ArrowUpRight className="size-4" />
+          </span>
         </div>
 
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-grow">
-          <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-1">
-            {title}
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
+          <h3 className="mb-2 text-lg font-semibold tracking-tight text-foreground transition-colors group-hover:text-primary">
+            {project.title}
           </h3>
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
-            {description}
+          <p className="mb-5 line-clamp-3 text-sm leading-6 text-muted-foreground">
+            {project.description}
           </p>
 
-          {/* Tags */}
-          {tags && tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3 mb-1">
-              {tags.slice(0, 3).map((tag) => (
+          {project.tags && project.tags.length > 0 && (
+            <div className="mt-auto flex flex-wrap gap-2">
+              {project.tags.slice(0, 4).map((tag) => (
                 <span
                   key={tag}
-                  className="px-2 py-1 text-[10px] sm:text-xs font-medium bg-primary/10 text-primary rounded-md"
+                  className="rounded-md border border-border/80 bg-background/35 px-2 py-1 font-mono text-[10px] text-foreground/65"
                 >
                   {tag}
                 </span>
               ))}
-              {tags.length > 3 && (
-                <span className="px-2 py-1 text-[10px] sm:text-xs font-medium bg-muted text-muted-foreground rounded-md">
-                  +{tags.length - 3}
+              {project.tags.length > 4 && (
+                <span className="rounded-md border border-border/80 px-2 py-1 font-mono text-[10px] text-muted-foreground">
+                  +{project.tags.length - 4}
                 </span>
               )}
             </div>
           )}
-
-          {date && (
-            <div className="text-sm text-muted-foreground mt-3">{date}</div>
-          )}
         </div>
-      </div>
-    </Component>
+      </article>
+    </button>
   );
 }

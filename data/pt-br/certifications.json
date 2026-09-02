@@ -14,5 +14,20 @@
     "description": "Workshop focado nos fundamentos da inteligência artificial e suas aplicações.",
     "icon": "/images/logo-senac.svg",
     "date": "2023"
+  },
+  {
+    "id": "office-adobe-premiere",
+    "title": "Pacote Office / Adobe Premiere"
+  },
+  {
+    "id": "projeto-back-end",
+    "title": "Projeto Back-End",
+    "icon": "/images/Ibmec Logo.svg"
+  },
+  {
+    "id": "certificado-front-end",
+    "title": "Certificado Front-End",
+    "icon": "/images/Ibmec Logo.svg"
+
   }
 ]

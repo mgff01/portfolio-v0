@@ -1,155 +1,159 @@
 "use client";
 
 import Image from "next/image";
-import { Linkedin, Github, Youtube, Mail } from "lucide-react";
+import type { ReactNode } from "react";
+import { Github, Linkedin, Mail } from "lucide-react";
 import { useI18n } from "./i18n-provider";
 
 export default function ProfileSidebar() {
-  const { data: { profile, ui }, language, setLanguage } = useI18n();
+  const {
+    data: { profile, ui },
+    language,
+    setLanguage,
+  } = useI18n();
+
   return (
-    <aside className="w-full lg:w-[340px] lg:min-h-screen bg-background p-4 sm:p-6 lg:p-8 flex flex-col lg:fixed lg:left-0 lg:top-0 lg:bottom-0 lg:overflow-y-auto z-50 lg:border-r lg:border-border/30 ">
-      {/* Hero Section - Responsive Banner with Profile Photo Overlay */}
-      <div className="relative mb-8 sm:mb-6 opacity-0 animate-fade-in-up">
-        {/* Banner Image - Full width, limited height on mobile */}
-        <div className="relative w-full h-24 sm:h-28 lg:aspect-[16/9] lg:h-auto rounded-lg overflow-hidden">
+    <aside
+      id="about"
+      className="relative z-20 w-full border-b border-sidebar-border bg-sidebar/95 px-5 pb-8 pt-24 backdrop-blur-xl sm:px-8 lg:fixed lg:inset-y-0 lg:left-0 lg:w-[360px] lg:overflow-y-auto lg:border-b-0 lg:border-r lg:px-8 lg:py-8"
+    >
+      <div className="relative mb-16 opacity-0 animate-fade-in-up">
+        <div className="relative h-28 overflow-hidden rounded-2xl border border-border/60 bg-card lg:h-32">
           <Image
             src={profile.bannerImage || "/images/banner.jpg"}
-            alt="Profile banner background"
+            alt=""
             fill
+            sizes="(min-width: 1024px) 304px, calc(100vw - 40px)"
             className="object-cover"
             priority
           />
-          {/* Gradient overlay for better profile photo contrast */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-sidebar via-sidebar/25 to-transparent" />
         </div>
-        
-        {/* Profile Photo - Prominently large */}
-        <div className="absolute -bottom-16 sm:-bottom-14 left-4 w-32 h-32 sm:w-36 sm:h-36 lg:w-40 lg:h-40 rounded-xl overflow-hidden border-4 border-background shadow-xl">
+
+        <div className="absolute -bottom-12 left-5 size-28 overflow-hidden rounded-2xl border-4 border-sidebar bg-card shadow-2xl shadow-black/50">
           <Image
             src={profile.image || "/images/photo.jpg"}
             alt={`Profile photo of ${profile.name}`}
             fill
+            sizes="112px"
             className="object-cover object-top"
             priority
           />
         </div>
+
       </div>
 
-      {/* Name and Title - Adjusted margin for profile photo overlap */}
-      <div className="mt-12 sm:mt-10 mb-6 opacity-0 animate-fade-in-up stagger-1">
-        <h1 className="text-xl sm:text-2xl font-bold text-foreground mb-1 text-balance">
+      <div className="mb-7 opacity-0 animate-fade-in-up stagger-1">
+        <h1 className="mb-2 text-3xl font-semibold leading-tight tracking-tight text-foreground sm:text-[2rem]">
           {profile.name}
         </h1>
-        <p className="text-muted-foreground text-sm">{profile.title}</p>
+        <p className="text-sm font-medium text-primary sm:text-base">{profile.title}</p>
       </div>
 
-      {/* About Section */}
-      <div className="mb-6 opacity-0 animate-fade-in-up stagger-2">
-        <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
+      <section className="mb-7 opacity-0 animate-fade-in-up stagger-2" aria-labelledby="about-title">
+        <h2 id="about-title" className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
           {ui.about}
         </h2>
-        <p className="text-sm text-foreground/90 leading-relaxed">
-          {profile.about}
-        </p>
-      </div>
+        <p className="text-sm leading-6 text-foreground/75">{profile.about}</p>
+      </section>
 
-      {/* Skills Section */}
-      <div className="mb-6 opacity-0 animate-fade-in-up stagger-3">
-        <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
+      <section className="mb-7 opacity-0 animate-fade-in-up stagger-3" aria-labelledby="skills-title">
+        <h2 id="skills-title" className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
           {ui.skills}
         </h2>
         <div className="flex flex-wrap gap-2">
           {profile.skills.map((skill, index) => (
             <span
               key={skill}
-              className="px-3 py-1.5 text-xs font-medium border border-border rounded-md text-foreground 
-                         hover:border-primary hover:text-primary transition-colors duration-200 cursor-default
-                         opacity-0 animate-scale-in"
-              style={{ animationDelay: `${0.4 + index * 0.05}s` }}
+              className="rounded-lg border border-border/80 bg-card/70 px-2.5 py-1.5 font-mono text-[11px] text-foreground/80 opacity-0 transition-colors hover:border-primary/50 hover:text-primary animate-scale-in"
+              style={{ animationDelay: `${0.25 + index * 0.025}s` }}
             >
               {skill}
             </span>
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Languages Section */}
-      <div className="mb-8 opacity-0 animate-fade-in-up stagger-5">
-        <h2 className="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-3">
+      <section className="mb-8 opacity-0 animate-fade-in-up stagger-4" aria-labelledby="languages-title">
+        <h2 id="languages-title" className="mb-3 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
           {ui.languages}
         </h2>
-        <div className="flex flex-wrap gap-3">
-          {profile.languages.map((lang) => {
-            const isEnglish = lang.name.includes("English") || lang.name.includes("Inglês");
-            const targetLang = isEnglish ? "en" : "pt-br";
-            const flagSrc = isEnglish 
-              ? "/images/usa-flag-circular-17882.svg" 
-              : "/images/brazil-flag-circular-17847.svg";
-            
-            const isActive = language === targetLang;
+        <div className="grid grid-cols-2 gap-2">
+          {profile.languages.map((item) => {
+            const isEnglish = item.name.includes("English") || item.name.includes("Inglês");
+            const targetLanguage = isEnglish ? "en" : "pt-br";
+            const isActive = language === targetLanguage;
 
             return (
               <button
-                key={lang.name}
-                onClick={() => setLanguage(targetLang)}
-                className={`flex-1 min-w-[120px] text-left rounded-lg p-3 border transition-all duration-300
-                            ${isActive 
-                              ? "bg-primary/5 border-primary/50 shadow-sm" 
-                              : "bg-card border-border/50 hover:border-primary/30"
-                            }`}
+                key={item.name}
+                type="button"
+                onClick={() => setLanguage(targetLanguage)}
+                aria-pressed={isActive}
+                className={`rounded-xl border p-3 text-left transition-colors ${
+                  isActive
+                    ? "border-primary/60 bg-primary/10"
+                    : "border-border/70 bg-card/60 hover:border-primary/30"
+                }`}
               >
-                <div className="flex items-center gap-2 mb-1">
-                  <div className="relative w-5 h-5 rounded-full overflow-hidden flex-shrink-0">
-                    <Image src={flagSrc} alt={`${lang.name} flag`} fill className="object-cover" />
-                  </div>
-                  <span className={`text-sm font-medium transition-colors ${isActive ? "text-primary" : "text-foreground"}`}>
-                    {lang.name}
+                <div className="mb-2 flex items-center justify-between gap-2">
+                  <span className="text-xs font-semibold text-foreground">{item.name}</span>
+                  <span className="relative size-5 overflow-hidden rounded-full" aria-hidden="true">
+                    <Image
+                      src={isEnglish ? "/images/usa-flag-circular-17882.svg" : "/images/brazil-flag-circular-17847.svg"}
+                      alt=""
+                      fill
+                      sizes="20px"
+                      className="object-cover"
+                    />
                   </span>
                 </div>
-                <p className="text-xs text-muted-foreground mb-2">{lang.level}</p>
-                <div className="h-1 bg-border rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-primary rounded-full transition-all duration-1000"
-                    style={{ width: `${lang.progress}%` }}
-                  />
+                <div className="h-1 overflow-hidden rounded-full bg-border">
+                  <div className="h-full rounded-full bg-primary" style={{ width: `${item.progress}%` }} />
                 </div>
+                <span className="mt-2 block text-[10px] text-muted-foreground">{item.level}</span>
               </button>
             );
           })}
         </div>
-      </div>
+      </section>
 
-      {/* Spacer */}
-      <div className="flex-1" />
-
-      {/* Social Links */}
-      <div className="flex items-center gap-6 pt-4 opacity-0 animate-fade-in-up stagger-6">
-        <a
-          href="https://www.linkedin.com/in/mgff01/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-foreground hover:text-muted-foreground transition-colors duration-200 "
-          aria-label="LinkedIn profile"
-        >
-          <Linkedin className="w-6 h-6" />
-        </a>
-        <a
-          href="https://github.com/mgff01"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-foreground hover:text-muted-foreground transition-colors duration-200"
-          aria-label="GitHub profile"
-        >
-          <Github className="w-6 h-6" />
-        </a>
-        <a
-          href="mailto:mauricio050607@gmail.com"
-          className="text-foreground hover:text-muted-foreground transition-colors duration-200"
-          aria-label="Send an email"
-        >
-          <Mail className="w-6 h-6" />
-        </a>
-      </div>
+      <nav className="flex items-center gap-2 border-t border-border/70 pt-5 opacity-0 animate-fade-in-up stagger-5" aria-label="Social links">
+        <SocialLink href={profile.social.linkedin} label="LinkedIn">
+          <Linkedin className="size-4" />
+        </SocialLink>
+        <SocialLink href={profile.social.github} label="GitHub">
+          <Github className="size-4" />
+        </SocialLink>
+        <SocialLink href={profile.social.email} label="Email">
+          <Mail className="size-4" />
+        </SocialLink>
+      </nav>
     </aside>
+  );
+}
+
+function SocialLink({
+  href,
+  label,
+  children,
+}: {
+  href: string;
+  label: string;
+  children: ReactNode;
+}) {
+  const isExternal = href.startsWith("http");
+
+  return (
+    <a
+      href={href}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noopener noreferrer" : undefined}
+      aria-label={label}
+      className="flex h-10 flex-1 items-center justify-center gap-2 rounded-xl border border-border bg-card text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-primary/50 hover:text-primary"
+    >
+      <span>{children}</span>
+      <span className="hidden text-[11px] font-medium sm:inline">{label}</span>
+    </a>
   );
 }

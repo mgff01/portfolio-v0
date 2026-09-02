@@ -1,14 +1,16 @@
 {
   "name": "Mauricio Gomes Freire Filho",
-  "title": "Computer Engineer Student",
+  "title": "Computer Engineering Student at Ibmec",
   "image": "/images/photo.jpg",
   "bannerImage": "/images/banner.jpg",
-  "about": "Combining technical expertise in Front-End and Back-End development with advanced skills in visual and 3D design, I focus on building intuitive and functional interfaces. Experienced in collaborating on high-impact academic projects, I am equipped to solve complex problems with critical thinking and adaptability.",
+  "about": "I am seeking an internship where I can apply my Computer Engineering knowledge. My technical versatility spans Front-End and Back-End development, physical prototyping, and electronics, allowing me to build complete solutions and intuitive interfaces.",
   "skills": [
     "HTML",
     "CSS",
     "JavaScript",
     "TypeScript",
+    "Java",
+    "OOP",
     "Python",
     "C++",
     "React",
@@ -24,8 +26,14 @@
     { "name": "Portuguese", "level": "Fluent", "flag": "🇧🇷", "progress": 100 },
     { "name": "English", "level": "Advanced", "flag": "🇺🇸", "progress": 85 }
   ],
+  "education": {
+    "institution": "Ibmec",
+    "degree": "Bachelor's Degree in Computer Engineering",
+    "period": "2025 — 2029"
+  },
   "social": {
-    "linkedin": "https://linkedin.com",
-    "github": "https://github.com"
+    "linkedin": "https://www.linkedin.com/in/mgff01/",
+    "github": "https://github.com/mgff01",
+    "email": "mailto:mauricio050607@gmail.com"
   }
 }

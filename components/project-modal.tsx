@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Github, ExternalLink } from "lucide-react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { ExternalLink, Github, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useI18n } from "./i18n-provider";
 import type { Project } from "@/types/portfolio";
@@ -15,192 +14,93 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, isOpen, onClose }: ProjectModalProps) {
-  const { data: { ui } } = useI18n();
-
-  // Close on escape key
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
-    
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "unset";
-    };
-  }, [isOpen, onClose]);
-
-  if (!project) return null;
+  const {
+    data: { ui },
+  } = useI18n();
 
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            onClick={onClose}
-            className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-md cursor-pointer"
-            aria-hidden="true"
-          />
-
-          {/* Modal */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
-            transition={{ 
-              type: "spring", 
-              stiffness: 300, 
-              damping: 30,
-              duration: 0.4
-            }}
-            className="fixed inset-0 z-[101] flex items-center justify-center p-4 md:p-8 pointer-events-none"
-          >
-            <div 
-              className="relative w-full max-w-3xl max-h-[90vh] overflow-y-auto bg-card rounded-2xl 
-                         shadow-2xl shadow-black/40 border border-border/50 pointer-events-auto"
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <motion.button
-                onClick={onClose}
-                whileHover={{ scale: 1.1, rotate: 90 }}
-                whileTap={{ scale: 0.9 }}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-background/80 
-                           backdrop-blur-sm border border-border flex items-center justify-center
-                           text-foreground hover:bg-primary hover:text-primary-foreground 
-                           hover:border-primary transition-colors duration-200"
-                aria-label="Close modal"
+    <Dialog.Root open={isOpen} onOpenChange={(open) => !open && onClose()}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 z-[100] bg-black/75 backdrop-blur-md data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:animate-in data-[state=open]:fade-in-0" />
+        {project && (
+          <Dialog.Content className="fixed left-1/2 top-1/2 z-[101] max-h-[92vh] w-[calc(100%-2rem)] max-w-3xl -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-2xl border border-border bg-card shadow-2xl shadow-black/60 focus:outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95">
+            <Dialog.Close asChild>
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                className="absolute right-4 top-4 z-10 rounded-full border-white/15 bg-black/50 text-white backdrop-blur-md hover:border-primary/60 hover:bg-primary hover:text-primary-foreground"
+                aria-label={ui.close}
               >
-                <X className="w-5 h-5" />
-              </motion.button>
+                <X />
+              </Button>
+            </Dialog.Close>
 
-              {/* Project Image */}
-              <motion.div 
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="relative w-full aspect-video rounded-t-2xl overflow-hidden"
-              >
-                <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={`Screenshot of ${project.title} project`}
-                  fill
-                  className="object-cover"
-                  priority
-                />
-                {/* Gradient overlay at bottom */}
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-card to-transparent" />
-              </motion.div>
+            <div className="relative aspect-video w-full overflow-hidden rounded-t-2xl bg-muted">
+              <Image
+                src={project.image || "/placeholder.svg"}
+                alt={`Screenshot of ${project.title}`}
+                fill
+                sizes="(min-width: 768px) 768px, 100vw"
+                className="object-cover"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-card to-transparent" />
+            </div>
 
-              {/* Content */}
-              <div className="p-6 md:p-8 -mt-8 relative">
-                {/* Title */}
-                <motion.h2 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 }}
-                  className="text-2xl md:text-3xl font-bold text-foreground mb-2"
-                >
+            <div className="relative -mt-7 p-6 pt-0 sm:p-8 sm:pt-0">
+              <div className="mb-4 flex items-start justify-between gap-4 pr-14">
+                <Dialog.Title className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
                   {project.title}
-                </motion.h2>
-
-                {/* Project Date */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-lg text-muted-foreground font-bold mb-4 absolute right-8 top-8 md:top-10 md:right-10"
-                >
-                  {project.date || 2025}
-                </motion.p>
-
-                {/* Short Description */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="text-lg text-primary font-medium mb-4"
-                >
-                  {project.description}
-                </motion.p>
-
-                {/* Full Description */}
-                <motion.p 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25 }}
-                  className="text-sm text-muted-foreground leading-relaxed mb-6"
-                >
-                  {project.fullDescription || project.description}
-                </motion.p>
-
-                {/* Tags */}
-                {project.tags && project.tags.length > 0 && (
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 }}
-                    className="flex flex-wrap gap-2 mb-8"
-                  >
-                    {project.tags.map((tag, index) => (
-                      <motion.span
-                        key={tag}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.35 + index * 0.05 }}
-                        className="px-3 py-1 text-xs font-medium bg-primary/10 text-primary rounded-full"
-                      >
-                        {tag}
-                      </motion.span>
-                    ))}
-                  </motion.div>
+                </Dialog.Title>
+                {project.date && (
+                  <span className="mt-1 shrink-0 rounded-full border border-border bg-background/80 px-3 py-1 font-mono text-[10px] text-muted-foreground">
+                    {project.date}
+                  </span>
                 )}
+              </div>
 
-                {/* Action Buttons */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="flex flex-col sm:flex-row gap-3"
-                >
-                  {project.repoUrl && (
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="flex-1 h-12 text-base font-medium gap-2 hover:bg-foreground hover:text-background bg-transparent"
+              <p className="mb-3 text-base font-medium leading-7 text-primary">
+                {project.description}
+              </p>
+              <Dialog.Description className="mb-6 text-sm leading-6 text-muted-foreground">
+                {project.fullDescription || project.description}
+              </Dialog.Description>
+
+              {project.tags && project.tags.length > 0 && (
+                <div className="mb-8 flex flex-wrap gap-2" aria-label="Technologies">
+                  {project.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-lg border border-primary/20 bg-primary/10 px-2.5 py-1.5 font-mono text-[10px] text-primary"
                     >
-                      <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-5 h-5" />
-                        {ui.sourceCode}
-                      </a>
-                    </Button>
-                  )}
-                  {project.liveUrl && (
-                    <Button
-                      asChild
-                      className="flex-1 h-12 text-background font-medium gap-2 bg-primary hover:bg-primary/90"
-                    >
-                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                        <ExternalLink className="w-5 h-5" />
-                        {ui.viewLive}
-                      </a>
-                    </Button>
-                  )}
-                </motion.div>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              <div className="flex flex-col gap-3 sm:flex-row">
+                {project.repoUrl && (
+                  <Button asChild variant="outline" size="lg" className="flex-1 rounded-xl bg-transparent">
+                    <a href={project.repoUrl} target="_blank" rel="noopener noreferrer">
+                      <Github />
+                      {ui.sourceCode}
+                    </a>
+                  </Button>
+                )}
+                {project.liveUrl && (
+                  <Button asChild size="lg" className="flex-1 rounded-xl">
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink />
+                      {ui.viewLive}
+                    </a>
+                  </Button>
+                )}
               </div>
             </div>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
+          </Dialog.Content>
+        )}
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 }

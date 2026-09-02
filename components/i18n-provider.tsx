@@ -1,6 +1,13 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+} from "react";
 
 import enUI from "@/data/en/ui.json";
 import ptBRUI from "@/data/pt-br/ui.json";
@@ -50,38 +57,58 @@ const dataMap = {
     experience: ptBRExperience as Experience[],
     certifications: ptBRCertifications as Certification[],
   },
-};
+} satisfies Record<Language, I18nData>;
 
 const I18nContext = createContext<I18nContextProps | undefined>(undefined);
+const languageListeners = new Set<() => void>();
+const languageStorageKey = "portfolio-lang";
+
+function getBrowserLanguage(): Language {
+  const storedLanguage = localStorage.getItem(languageStorageKey);
+  if (storedLanguage === "en" || storedLanguage === "pt-br") {
+    return storedLanguage;
+  }
+
+  return navigator.language.toLowerCase().startsWith("pt") ? "pt-br" : "en";
+}
+
+function subscribeToLanguage(callback: () => void) {
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === languageStorageKey) callback();
+  };
+
+  languageListeners.add(callback);
+  window.addEventListener("storage", handleStorage);
+  return () => {
+    languageListeners.delete(callback);
+    window.removeEventListener("storage", handleStorage);
+  };
+}
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>("en");
+  const language = useSyncExternalStore<Language>(
+    subscribeToLanguage,
+    getBrowserLanguage,
+    () => "en",
+  );
 
-  // Retrieve language from localStorage on mount
   useEffect(() => {
-    const storedLang = localStorage.getItem("portfolio-lang") as Language;
-    if (storedLang === "en" || storedLang === "pt-br") {
-      setLanguage(storedLang);
-    } else if (typeof navigator !== "undefined") {
-      const browserLang = navigator.language.toLowerCase();
-      if (browserLang.startsWith("pt")) {
-        setLanguage("pt-br");
-      } else {
-        setLanguage("en");
-      }
-    }
+    document.documentElement.lang = language;
+  }, [language]);
+
+  const handleSetLanguage = useCallback((lang: Language) => {
+    localStorage.setItem(languageStorageKey, lang);
+    languageListeners.forEach((listener) => listener());
   }, []);
 
-  const handleSetLanguage = (lang: Language) => {
-    setLanguage(lang);
-    localStorage.setItem("portfolio-lang", lang);
-  };
-
-  const value = {
-    language,
-    setLanguage: handleSetLanguage,
-    data: dataMap[language],
-  };
+  const value = useMemo(
+    () => ({
+      language,
+      setLanguage: handleSetLanguage,
+      data: dataMap[language],
+    }),
+    [handleSetLanguage, language],
+  );
 
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 }

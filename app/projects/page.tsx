@@ -1,50 +1,46 @@
 "use client";
 
-import { useState, useMemo } from "react";
-import Image from "next/image";
+import { useMemo, useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-import { Search, ArrowLeft, ArrowUpRight, SlidersHorizontal, X } from "lucide-react";
-import type { Project } from "@/types/portfolio";
-import ProjectModal from "@/components/project-modal";
+import { ArrowLeft, Search, SlidersHorizontal, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { useI18n } from "@/components/i18n-provider";
+import ProjectCard from "@/components/project-card";
+import ProjectModal from "@/components/project-modal";
+import type { Project } from "@/types/portfolio";
 
 export default function ProjectsPage() {
-  const { data: { projects, ui } } = useI18n();
-
-  // Extract all unique tags from projects
-  const allTags = useMemo(() => Array.from(
-    new Set(projects.flatMap((p) => p.tags || []))
-  ).sort(), [projects]);
+  const {
+    data: { projects, ui },
+  } = useI18n();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Filter projects based on search and tags
+  const allTags = useMemo(
+    () => Array.from(new Set(projects.flatMap((project) => project.tags ?? []))).sort(),
+    [projects],
+  );
+
   const filteredProjects = useMemo(() => {
-    return projects.filter((project) => {
-      // Search filter
-      const matchesSearch =
-        searchQuery === "" ||
-        project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||       
-        (project.tags || []).some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+    const query = searchQuery.trim().toLocaleLowerCase();
 
-      // Tag filter
+    return projects.filter((project) => {
+      const searchableText = [project.title, project.description, ...(project.tags ?? [])]
+        .join(" ")
+        .toLocaleLowerCase();
+      const matchesSearch = query === "" || searchableText.includes(query);
       const matchesTags =
         selectedTags.length === 0 ||
-        selectedTags.every((tag) => (project.tags || []).includes(tag));
+        selectedTags.every((tag) => project.tags?.includes(tag));
 
       return matchesSearch && matchesTags;
     });
-  }, [searchQuery, selectedTags]);
+  }, [projects, searchQuery, selectedTags]);
 
   const toggleTag = (tag: string) => {
-    setSelectedTags((prev) =>
-      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]
+    setSelectedTags((current) =>
+      current.includes(tag) ? current.filter((item) => item !== tag) : [...current, tag],
     );
   };
 
@@ -53,233 +49,118 @@ export default function ProjectsPage() {
     setSelectedTags([]);
   };
 
-  const openModal = (project: Project) => {
-    setSelectedProject(project);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setTimeout(() => setSelectedProject(null), 300);
-  };
-
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-40 bg-background/80 backdrop-blur-lg border-b border-border/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between mb-4">
+    <div className="min-h-screen">
+      <header className="sticky top-0 z-40 border-b border-border/70 bg-background/85 backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl px-5 py-5 sm:px-8">
+          <div className="mb-6 flex items-center justify-between gap-4">
             <Link
               href="/"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card/70 px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
             >
-              <ArrowLeft className="w-5 h-5" />
-              <span className="text-sm font-medium">{ui.backToHome || "Back to Home"}</span>
+              <ArrowLeft className="size-4" />
+              <span className="hidden sm:inline">{ui.backToHome}</span>
             </Link>
-            <h1 className="text-xl font-bold text-foreground">{ui.projects}</h1>
-            <div className="w-24" /> {/* Spacer for centering */}
+            <div className="text-center">
+              <p className="font-mono text-sm font-semibold tracking-tight text-foreground">
+                mgff01<span className="text-primary">.</span>
+              </p>
+              <h1 className="text-xl font-semibold tracking-tight text-foreground">{ui.projects}</h1>
+            </div>
+            <span className="min-w-10 text-right font-mono text-xs text-muted-foreground">
+              {String(filteredProjects.length).padStart(2, "0")}
+            </span>
           </div>
 
-          {/* Search Bar */}
           <div className="relative mb-4">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+            <Search className="pointer-events-none absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <label htmlFor="project-search" className="sr-only">
+              {ui.searchProjects}
+            </label>
             <input
-              type="text"
-              placeholder={ui.searchProjects || "Search projects..."}
+              id="project-search"
+              type="search"
+              placeholder={ui.searchProjects}
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full h-12 pl-12 pr-4 bg-card border border-border rounded-full
-                        text-foreground placeholder:text-muted-foreground
-                        focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent
-                        transition-all duration-200"
+              onChange={(event) => setSearchQuery(event.target.value)}
+              className="h-12 w-full rounded-xl border border-border bg-card/80 pl-11 pr-11 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
             {searchQuery && (
               <button
+                type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="absolute right-3 top-1/2 grid size-8 -translate-y-1/2 place-items-center rounded-full text-muted-foreground hover:bg-accent hover:text-foreground"
+                aria-label={ui.clearFilters}
               >
-                <X className="w-5 h-5" />
+                <X className="size-4" />
               </button>
             )}
           </div>
 
-          {/* Filter Tags */}
-          <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            <div className="flex items-center gap-2 text-muted-foreground mr-2">
-              <SlidersHorizontal className="w-4 h-4" />
-            </div>
-            {allTags.map((tag) => (
+          <div className="scrollbar-hide flex items-center gap-2 overflow-x-auto pb-1">
+            <SlidersHorizontal className="mr-1 size-4 shrink-0 text-muted-foreground" aria-hidden="true" />
+            {allTags.map((tag) => {
+              const isSelected = selectedTags.includes(tag);
+              return (
                 <button
-                key={tag}
-                onClick={() => toggleTag(tag)}
-                className={`px-4 py-2 text-sm font-medium rounded-full border whitespace-nowrap
-                       transition-all duration-200 ${
-                       selectedTags.includes(tag)
-                         ? "bg-primary text-background border-primary"
-                         : "bg-transparent border-border text-foreground hover:border-primary hover:text-primary"
-                       }`}
+                  key={tag}
+                  type="button"
+                  onClick={() => toggleTag(tag)}
+                  aria-pressed={isSelected}
+                  className={`shrink-0 rounded-full border px-3 py-1.5 font-mono text-[10px] transition-colors ${
+                    isSelected
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-card/50 text-muted-foreground hover:border-primary/40 hover:text-foreground"
+                  }`}
                 >
-                {tag}
+                  {tag}
                 </button>
-            ))}
+              );
+            })}
             {(selectedTags.length > 0 || searchQuery) && (
               <button
+                type="button"
                 onClick={clearFilters}
-                className="px-4 py-2 text-sm font-medium text-destructive hover:text-destructive/80 
-                          whitespace-nowrap transition-colors duration-200"
+                className="shrink-0 px-2 py-1.5 text-xs font-medium text-destructive hover:underline"
               >
-                {ui.clearFilters || "Clear filters"}
+                {ui.clearFilters}
               </button>
             )}
           </div>
         </div>
       </header>
 
-      {/* Projects Grid */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
-              <motion.div
+      <main className="mx-auto max-w-7xl px-5 py-8 sm:px-8 sm:py-12">
+        {filteredProjects.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:gap-6">
+            {filteredProjects.map((project, index) => (
+              <ProjectCard
                 key={project.id}
-                layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 25,
-                  opacity: { duration: 0.2 },
-                }}
-              >
-                <ProjectCard project={project} onSelect={() => openModal(project)} />
-              </motion.div>
+                project={project}
+                onSelect={() => setSelectedProject(project)}
+                priority={index < 2}
+              />
             ))}
-          </AnimatePresence>
-        </motion.div>
-
-        {/* Empty State */}
-        {filteredProjects.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex flex-col items-center justify-center py-20 text-center"
-          >
-            <div className="w-16 h-16 rounded-full bg-card flex items-center justify-center mb-4">
-              <Search className="w-8 h-8 text-muted-foreground" />
+          </div>
+        ) : (
+          <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
+            <div className="mb-5 grid size-16 place-items-center rounded-2xl border border-border bg-card">
+              <Search className="size-6 text-muted-foreground" />
             </div>
-            <h3 className="text-lg font-semibold text-foreground mb-2">
-              {ui.noProjectsFound || "No projects found"}
-            </h3>
-            <p className="text-muted-foreground mb-4">
-              {ui.tryAdjusting || "Try adjusting your search or filters"}
-            </p>
-            <button
-              onClick={clearFilters}
-              className="px-4 py-2 bg-primary text-background rounded-lg font-medium
-                        hover:bg-primary/90 transition-colors duration-200"
-            >
-              {ui.clearAllFilters || "Clear all filters"}
-            </button>
-          </motion.div>
+            <h2 className="mb-2 text-lg font-semibold text-foreground">{ui.noProjectsFound}</h2>
+            <p className="mb-5 text-sm text-muted-foreground">{ui.tryAdjusting}</p>
+            <Button type="button" onClick={clearFilters} className="rounded-xl">
+              {ui.clearAllFilters}
+            </Button>
+          </div>
         )}
       </main>
 
-      {/* Project Modal */}
       <ProjectModal
         project={selectedProject}
-        isOpen={isModalOpen}
-        onClose={closeModal}
+        isOpen={selectedProject !== null}
+        onClose={() => setSelectedProject(null)}
       />
     </div>
-  );
-}
-
-interface ProjectCardProps {
-  project: Project;
-  onSelect: () => void;
-}
-
-function ProjectCard({ project, onSelect }: ProjectCardProps) {
-  return (
-    <button
-      onClick={onSelect}
-      className="group block w-full text-left"
-      aria-label={`View ${project.title} details`}
-    >
-      <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        className="relative overflow-hidden rounded-xl bg-card border border-border/50 
-                   transition-all duration-300 hover:border-primary/50 hover:shadow-xl hover:shadow-primary/10
-                   h-full flex flex-col"
-      >
-        {/* Image Container - Uniform aspect ratio */}
-        <div className="relative aspect-[16/10] overflow-hidden flex-shrink-0">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="relative w-full h-full"
-          >
-            <Image
-              src={project.image || "/placeholder.svg"}
-              alt={project.title}
-              fill
-              className="object-cover"
-            />
-          </motion.div>
-
-          {/* Gradient Overlay */}
-          <div
-            className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent 
-                          opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          />
-
-          {/* Hover Arrow */}
-          <div className="absolute inset-0 flex items-center justify-center">
-            <div
-              className="w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/30 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-300 bg-background"
-            >
-              <ArrowUpRight className="w-6 h-6 text-foreground" />
-            </div>
-          </div>
-        </div>
-
-        {/* Content */}
-        <div className="p-5 flex flex-col flex-grow">
-          <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors duration-300 line-clamp-1">
-            {project.title}
-          </h3>
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed flex-grow">
-            {project.description}
-          </p>
-
-          {/* Project Date */}
-          <motion.p 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-lg text-muted-foreground font-bold mb-4 absolute right-8 md:right-10"
-          >
-            {project.date || 2025}
-          </motion.p>
-
-          {/* Tags */}
-          {project.tags && project.tags.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-3">
-              {project.tags.map((tag) => (
-                <span
-                  key={tag}
-                  className="px-2 py-1 text-xs font-medium bg-primary/10 text-primary rounded-md"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
-      </motion.div>
-    </button>
   );
 }
